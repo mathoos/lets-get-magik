@@ -1,9 +1,39 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string);
 
 export default function PanierPage() {
   const { panier, ajouterAuPanier, retirerDuPanier, viderPanier, calculerTotal } = useCart();
+
+  const handlePaiement = async () => {
+    if (panier.length === 0) return;
+
+    // Charger Stripe
+    const stripe = await stripePromise;
+
+    if (!stripe) {
+      console.error("Erreur de chargement de Stripe");
+      return;
+    }
+
+    // Appel à notre API backend pour créer la session de paiement
+    const response = await fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ panier }),
+    });
+
+    const data = await response.json();
+
+    // Si l'URL de la session Stripe est bien récupérée, on redirige l'utilisateur vers Stripe
+    if (data.url) {
+      viderPanier(); // Vider le panier après la commande
+      stripe.redirectToCheckout({ sessionId: data.url }); // Redirige vers Stripe
+    }
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -51,6 +81,14 @@ export default function PanierPage() {
             className="bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-900 w-full mt-4"
           >
             Vider le panier
+          </button>
+
+          {/* Bouton pour lancer le paiement */}
+          <button
+            onClick={handlePaiement}
+            className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 w-full mt-4"
+          >
+            Payer avec Stripe
           </button>
         </div>
       )}
