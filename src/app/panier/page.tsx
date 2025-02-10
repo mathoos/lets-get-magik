@@ -3,7 +3,7 @@
 import { useCart } from "@/context/CartContext";
 
 export default function PanierPage() {
-  const { panier, ajouterAuPanier, retirerDuPanier, calculerTotal } = useCart();
+  const { panier, ajouterAuPanier, retirerDuPanier, viderPanier, calculerTotal } = useCart();
 
   return (
     <div className="container mx-auto p-4">
@@ -44,6 +44,14 @@ export default function PanierPage() {
           <div className="bg-gray-100 p-4 rounded-lg shadow-md text-right">
             <h2 className="text-2xl font-semibold">Total : {calculerTotal()} €</h2>
           </div>
+
+          {/* Bouton pour vider le panier */}
+          <button
+            onClick={viderPanier}
+            className="bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-900 w-full mt-4"
+          >
+            Vider le panier
+          </button>
         </div>
       )}
     </div>

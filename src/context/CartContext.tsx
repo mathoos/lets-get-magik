@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 // Définition de l'interface d'un produit
 interface Produit {
@@ -20,6 +20,7 @@ interface CartContextType {
   panier: ProduitPanier[];
   ajouterAuPanier: (produit: Produit) => void;
   retirerDuPanier: (id: number) => void;
+  viderPanier: () => void;
   calculerTotal: () => number;
 }
 
@@ -30,18 +31,33 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: ReactNode }) {
   const [panier, setPanier] = useState<ProduitPanier[]>([]);
 
+  // Charger le panier depuis localStorage au montage du composant
+  useEffect(() => {
+    const panierStocké = localStorage.getItem("panier");
+    if (panierStocké) {
+      setPanier(JSON.parse(panierStocké));
+    }
+  }, []);
+
+  // Sauvegarder le panier dans localStorage à chaque mise à jour
+  useEffect(() => {
+    if (panier.length > 0) {
+      localStorage.setItem("panier", JSON.stringify(panier));
+    } else {
+      localStorage.removeItem("panier"); // Supprimer si le panier est vide
+    }
+  }, [panier]);
+
   // Fonction pour ajouter un produit au panier
   const ajouterAuPanier = (produit: Produit) => {
     setPanier((prevPanier) => {
       const existe = prevPanier.find((p) => p.id === produit.id);
 
       if (existe) {
-        // Si le produit est déjà dans le panier, augmenter la quantité
         return prevPanier.map((p) =>
           p.id === produit.id ? { ...p, quantite: p.quantite + 1 } : p
         );
       } else {
-        // Sinon, ajouter le produit avec une quantité initiale de 1
         return [...prevPanier, { ...produit, quantite: 1 }];
       }
     });
@@ -52,8 +68,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setPanier((prevPanier) =>
       prevPanier
         .map((p) => (p.id === id ? { ...p, quantite: p.quantite - 1 } : p))
-        .filter((p) => p.quantite > 0) // Supprimer les produits dont la quantité devient 0
+        .filter((p) => p.quantite > 0)
     );
+  };
+
+  // Fonction pour vider entièrement le panier
+  const viderPanier = () => {
+    setPanier([]); // On vide le state et localStorage sera mis à jour automatiquement
   };
 
   // Fonction pour calculer le total du panier
@@ -62,7 +83,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <CartContext.Provider value={{ panier, ajouterAuPanier, retirerDuPanier, calculerTotal }}>
+    <CartContext.Provider value={{ panier, ajouterAuPanier, retirerDuPanier, viderPanier, calculerTotal }}>
       {children}
     </CartContext.Provider>
   );
