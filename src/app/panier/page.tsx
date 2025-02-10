@@ -28,10 +28,12 @@ export default function PanierPage() {
 
     const data = await response.json();
 
-    // Si l'URL de la session Stripe est bien récupérée, on redirige l'utilisateur vers Stripe
-    if (data.url) {
+    // Vérifie si on a bien un sessionId et redirige vers Stripe
+    if (data.sessionId) {
       viderPanier(); // Vider le panier après la commande
-      stripe.redirectToCheckout({ sessionId: data.url }); // Redirige vers Stripe
+      stripe.redirectToCheckout({ sessionId: data.sessionId }); // Utilise sessionId ici, pas l'URL complète
+    } else {
+      console.error("Erreur de session Stripe :", data.error);
     }
   };
 
