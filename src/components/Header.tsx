@@ -12,7 +12,6 @@ export default function Header() {
                 <h1 className="text-xl font-bold text-blue-500 cursor-pointer">Mon E-Commerce 🛍️</h1>
             </Link>
             <nav>
-                <Link href="/produits" className="text-gray-600 px-4">Produits</Link>
                 <Link href="/panier" className="text-gray-600 px-4">
                     Panier 🛒 ({panier.length})
                 </Link>
