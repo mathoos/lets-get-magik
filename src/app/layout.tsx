@@ -1,9 +1,9 @@
-
 import type { Metadata } from "next";
-import "../styles/globals.css"
+import "../styles/globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { CartProvider } from "../context/CartContext";
+import { SearchProvider } from "../context/SearchContext"; // 🔹 Import du SearchProvider
 
 export const metadata: Metadata = {
     title: "Mon E-Commerce",
@@ -15,9 +15,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <html lang="fr">
             <body className="flex flex-col min-h-screen">
                 <CartProvider>
-                    <Header />
+                    <SearchProvider> {/* 🔹 Ajout du SearchProvider */}
+                        <Header />
                         <main className="flex-grow container mx-auto p-4">{children}</main>
-                    <Footer />
+                        <Footer />
+                    </SearchProvider>
                 </CartProvider>
             </body>
         </html>

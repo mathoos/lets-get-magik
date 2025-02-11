@@ -2,6 +2,7 @@
 
 import { useCart } from "@/context/CartContext";
 import { loadStripe } from "@stripe/stripe-js";
+import { FaTrash } from "react-icons/fa"; // Import de l'icône poubelle
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string);
 
@@ -49,10 +50,18 @@ export default function PanierPage() {
               key={produit.id}
               className="bg-white p-4 rounded-lg shadow-md flex justify-between items-center"
             >
-              <div>
-                <h2 className="text-xl font-semibold">{produit.nom}</h2>
-                <p className="text-lg font-bold text-blue-500">{produit.prix} €</p>
-                <p className="text-sm text-gray-600">Quantité : {produit.quantite}</p>
+              <div className="flex items-center space-x-4">
+                {/* Miniature de l'image du produit */}
+                <img
+                  src={produit.image} // Assure-toi que `produit.image` contient l'URL de l'image
+                  alt={produit.nom}
+                  className="w-20 h-20 object-cover rounded-lg"
+                />
+                <div>
+                  <h2 className="text-xl font-semibold">{produit.nom}</h2>
+                  <p className="text-lg font-bold text-blue-500">{produit.prix} €</p>
+                  <p className="text-sm text-gray-600">Quantité : {produit.quantite}</p>
+                </div>
               </div>
               <div className="flex items-center space-x-2">
                 <button
@@ -67,6 +76,13 @@ export default function PanierPage() {
                   className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
                 >
                   +
+                </button>
+                {/* Bouton poubelle pour supprimer un produit */}
+                <button
+                  onClick={() => retirerDuPanier(produit.id)}
+                  className="bg-red-200 text-red-500 p-2 rounded-full hover:bg-red-300"
+                >
+                  <FaTrash /> {/* Icone poubelle */}
                 </button>
               </div>
             </div>
