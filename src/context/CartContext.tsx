@@ -1,99 +1,71 @@
 "use client";
+import { createContext, useContext, useState, ReactNode } from "react";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-
-// Définition de l'interface d'un produit
-interface Produit {
-  id: number;
+// Définir le type du produit
+type Produit = {
+  id: string;
   nom: string;
   prix: number;
   image: string;
-}
-
-// Définition de l'interface d'un produit dans le panier (avec la quantité)
-interface ProduitPanier extends Produit {
   quantite: number;
-}
+};
 
-// Définition des fonctions disponibles dans le contexte du panier
-interface CartContextType {
-  panier: ProduitPanier[];
+type CartContextType = {
+  panier: Produit[];
   ajouterAuPanier: (produit: Produit) => void;
-  retirerDuPanier: (id: number) => void;
+  retirerDuPanier: (id: string) => void;
   viderPanier: () => void;
   calculerTotal: () => number;
-}
+};
 
-// Création du contexte du panier
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-// Création du Provider pour gérer l'état global du panier
-export function CartProvider({ children }: { children: ReactNode }) {
-  const [panier, setPanier] = useState<ProduitPanier[]>([]);
+export const CartProvider = ({ children }: { children: ReactNode }) => {
+  const [panier, setPanier] = useState<Produit[]>([]);
 
-  // Charger le panier depuis localStorage au montage du composant
-  useEffect(() => {
-    const panierStocké = localStorage.getItem("panier");
-    if (panierStocké) {
-      setPanier(JSON.parse(panierStocké));
-    }
-  }, []);
-
-  // Sauvegarder le panier dans localStorage à chaque mise à jour
-  useEffect(() => {
-    if (panier.length > 0) {
-      localStorage.setItem("panier", JSON.stringify(panier));
-    } else {
-      localStorage.removeItem("panier"); // Supprimer si le panier est vide
-    }
-  }, [panier]);
-
-  // Fonction pour ajouter un produit au panier
+  // Ajouter un produit au panier
   const ajouterAuPanier = (produit: Produit) => {
     setPanier((prevPanier) => {
-      const existe = prevPanier.find((p) => p.id === produit.id);
-
-      if (existe) {
+      // Si le produit est déjà dans le panier, augmenter la quantité
+      const produitExistant = prevPanier.find((p) => p.id === produit.id);
+      if (produitExistant) {
         return prevPanier.map((p) =>
           p.id === produit.id ? { ...p, quantite: p.quantite + 1 } : p
         );
-      } else {
-        return [...prevPanier, { ...produit, quantite: 1 }];
       }
+      return [...prevPanier, { ...produit, quantite: 1 }];
     });
   };
 
-  // Fonction pour retirer un produit du panier
-  const retirerDuPanier = (id: number) => {
-    setPanier((prevPanier) =>
-      prevPanier
-        .map((p) => (p.id === id ? { ...p, quantite: p.quantite - 1 } : p))
-        .filter((p) => p.quantite > 0)
-    );
+  // Retirer un produit du panier
+  const retirerDuPanier = (id: string) => {
+    setPanier((prevPanier) => prevPanier.filter((produit) => produit.id !== id));
   };
 
-  // Fonction pour vider entièrement le panier
+  // Vider le panier
   const viderPanier = () => {
-    setPanier([]); // On vide le state et localStorage sera mis à jour automatiquement
+    setPanier([]);
   };
 
-  // Fonction pour calculer le total du panier
+  // Calculer le total du panier
   const calculerTotal = () => {
     return panier.reduce((total, produit) => total + produit.prix * produit.quantite, 0);
   };
 
   return (
-    <CartContext.Provider value={{ panier, ajouterAuPanier, retirerDuPanier, viderPanier, calculerTotal }}>
+    <CartContext.Provider
+      value={{ panier, ajouterAuPanier, retirerDuPanier, viderPanier, calculerTotal }}
+    >
       {children}
     </CartContext.Provider>
   );
-}
+};
 
-// Hook personnalisé pour utiliser le contexte du panier
-export function useCart() {
+// Hook personnalisé pour utiliser le panier
+export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {
-    throw new Error("useCart doit être utilisé dans un CartProvider");
+    throw new Error("useCart must be used within a CartProvider");
   }
   return context;
-}
+};
