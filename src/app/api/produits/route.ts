@@ -3,10 +3,10 @@ import supabase from "@/lib/supabase";
 
 export async function POST(req: Request) {
   const data = await req.json();
-  const { nom, description, prix, image} = data;
+  const { nom, description, prix, image, details} = data;
 
   const { error } = await supabase.from("produits").insert([
-    { nom, description, prix, image },
+    { nom, description, prix, image, details },
   ]);
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });

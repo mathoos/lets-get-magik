@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import supabase from "@/lib/supabase";
 import { useCart } from "../context/CartContext"; 
@@ -64,10 +65,12 @@ export default function Home() {
           <div className="grid grid-cols-3 gap-4">
             {produitsFiltres.map((produit) => (
               <div key={produit.id} className="border p-4">
-                <h2 className="text-xl">{produit.nom}</h2>
+                <Link href={`/produit/${produit.id}`}>
+                  <h2 className="text-xl cursor-pointer text-blue-600 hover:underline">{produit.nom}</h2>
+                  <img src={produit.image} alt={produit.nom} className="w-full h-40 object-cover" />
+                </Link>
                 <p>{produit.description}</p>
                 <p className="text-lg font-bold">{produit.prix} €</p>
-                <img src={produit.image} alt={produit.nom} className="w-full h-40 object-cover" />
                 <button
                   onClick={() => ajouterAuPanier({ ...produit, quantite: 1 })}
                   className="mt-2 p-2 bg-blue-500 text-white rounded"
