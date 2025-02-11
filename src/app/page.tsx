@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import supabase from "@/lib/supabase";
-import { useCart } from "../context/CartContext";
-import { useSearch } from "../context/SearchContext";
+import { useCart } from "../context/CartContext"; 
+import { useSearch } from "../context/SearchContext"; // 🔹 Import du contexte de recherche
 
 type Produit = {
   id: string;
@@ -11,12 +11,15 @@ type Produit = {
   prix: number;
   image: string;
   quantite: number;
+  categorie: string; 
 };
 
 export default function Home() {
   const [produits, setProduits] = useState<Produit[]>([]);
+  const [categorieFiltre, setCategorieFiltre] = useState<string | null>(null);
   const { ajouterAuPanier } = useCart();
   const { recherche } = useSearch();
+
 
   useEffect(() => {
     async function fetchProduits() {
@@ -30,17 +33,33 @@ export default function Home() {
     fetchProduits();
   }, []);
 
+
   const produitsFiltres = produits.filter(
     (produit) =>
-      produit.nom.toLowerCase().includes(recherche) || produit.description.toLowerCase().includes(recherche)
+      (!categorieFiltre || produit.categorie.toLowerCase() === categorieFiltre.toLowerCase()) &&
+      produit.nom.toLowerCase().includes(recherche.toLowerCase())
   );
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mt-8">Nos Produits</h1>
+      <h1 className="text-3xl font-bold mb-4">Nos Produits</h1>
+
+      
+      <div className="mb-4">
+        <button onClick={() => setCategorieFiltre(null)} className="px-4 py-2 mr-2 bg-gray-300 rounded">
+          Tous
+        </button>
+        <button onClick={() => setCategorieFiltre("maquillage")} className="px-4 py-2 mr-2 bg-blue-500 text-white rounded">
+          Maquillage
+        </button>
+        <button onClick={() => setCategorieFiltre("soin")} className="px-4 py-2 bg-green-500 text-white rounded">
+          Soin
+        </button>
+      </div>
+
       <div>
         {produitsFiltres.length === 0 ? (
-          <p>Pas de produits disponibles pour cette recherche</p>
+          <p>Aucun produit trouvé</p>
         ) : (
           <div className="grid grid-cols-3 gap-4">
             {produitsFiltres.map((produit) => (
@@ -48,7 +67,7 @@ export default function Home() {
                 <h2 className="text-xl">{produit.nom}</h2>
                 <p>{produit.description}</p>
                 <p className="text-lg font-bold">{produit.prix} €</p>
-                <img src={produit.image} alt={produit.nom} />
+                <img src={produit.image} alt={produit.nom} className="w-full h-40 object-cover" />
                 <button
                   onClick={() => ajouterAuPanier({ ...produit, quantite: 1 })}
                   className="mt-2 p-2 bg-blue-500 text-white rounded"
