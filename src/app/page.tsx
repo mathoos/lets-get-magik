@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import supabase from "@/lib/supabase";
 import { useCart } from "../context/CartContext"; 
-import { useSearch } from "../context/SearchContext"; // 🔹 Import du contexte de recherche
+import { useSearch } from "../context/SearchContext"; 
 
 type Produit = {
   id: string;
@@ -19,8 +19,7 @@ export default function Home() {
   const [produits, setProduits] = useState<Produit[]>([]);
   const [categorieFiltre, setCategorieFiltre] = useState<string | null>(null);
   const { ajouterAuPanier } = useCart();
-  const { recherche } = useSearch();
-
+  const { recherche, setRecherche } = useSearch(); // 🔹 Utilisation du contexte de recherche
 
   useEffect(() => {
     async function fetchProduits() {
@@ -34,7 +33,6 @@ export default function Home() {
     fetchProduits();
   }, []);
 
-
   const produitsFiltres = produits.filter(
     (produit) =>
       (!categorieFiltre || produit.categorie.toLowerCase() === categorieFiltre.toLowerCase()) &&
@@ -45,7 +43,16 @@ export default function Home() {
     <div>
       <h1 className="text-3xl font-bold mb-4">Nos Produits</h1>
 
-      
+      {/* 🔹 Barre de recherche */}
+      <input
+        type="text"
+        placeholder="Rechercher un produit..."
+        value={recherche}
+        onChange={(e) => setRecherche(e.target.value)}
+        className="w-full p-2 mb-4 border rounded"
+      />
+
+      {/* 🔹 Filtres de catégorie */}
       <div className="mb-4">
         <button onClick={() => setCategorieFiltre(null)} className="px-4 py-2 mr-2 bg-gray-300 rounded">
           Tous
@@ -58,6 +65,7 @@ export default function Home() {
         </button>
       </div>
 
+      {/* 🔹 Liste des produits */}
       <div>
         {produitsFiltres.length === 0 ? (
           <p>Aucun produit trouvé</p>
