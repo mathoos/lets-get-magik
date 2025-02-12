@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import supabase from "@/lib/supabase";
 
 // Définir un type Produit pour la structure des données
@@ -20,6 +21,7 @@ const AdminPanel = () => {
   const [image, setImage] = useState("");
   const [details, setDetails] = useState("");
   const [selectedProduit, setSelectedProduit] = useState<Produit | null>(null);
+  const router = useRouter();
 
   // Récupérer les produits depuis la base de données
   useEffect(() => {
@@ -98,12 +100,22 @@ const AdminPanel = () => {
     }
   };
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.push("/login"); // Redirige vers la page de connexion après déconnexion
+  };
+  
+
   return (
     <div>
       {/* Formulaire d'ajout/édition */}
       <h2 className="text-xl font-bold mb-4">
         {selectedProduit ? "Modifier un produit" : "Ajouter un produit"}
       </h2>
+      <button onClick={handleLogout} className="bg-red-500 text-white p-2 rounded">
+  Déconnexion
+</button>
+
       <form onSubmit={selectedProduit ? handleUpdateProduct : handleAddProduct} className="space-y-4">
         <div>
           <label>Nom du produit</label>
