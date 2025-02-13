@@ -6,90 +6,91 @@ import { useCart } from "../context/CartContext";
 import { useSearch } from "../context/SearchContext"; 
 
 type Produit = {
-  id: string;
-  nom: string;
-  description: string;
-  prix: number;
-  image: string;
-  quantite: number;
-  categorie: string; 
+    id: string;
+    nom: string;
+    description: string;
+    prix: number;
+    image: string;
+    quantite: number;
+    categorie: string; 
 };
 
 export default function Home() {
-  const [produits, setProduits] = useState<Produit[]>([]);
-  const [categorieFiltre, setCategorieFiltre] = useState<string | null>(null);
-  const { ajouterAuPanier } = useCart();
-  const { recherche, setRecherche } = useSearch(); // 🔹 Utilisation du contexte de recherche
+    const [produits, setProduits] = useState<Produit[]>([]);
+    const [categorieFiltre, setCategorieFiltre] = useState<string | null>(null);
+    const { ajouterAuPanier } = useCart();
+    const { recherche, setRecherche } = useSearch(); // 🔹 Utilisation du contexte de recherche
 
-  useEffect(() => {
-    async function fetchProduits() {
-      const { data, error } = await supabase.from("produits").select("*");
-      if (error) {
-        console.error(error);
-      } else {
-        setProduits(data);
-      }
-    }
-    fetchProduits();
-  }, []);
+    useEffect(() => {
+        async function fetchProduits() {
+            const { data, error } = await supabase.from("produits").select("*");
+            if (error) {
+                console.error(error);
+            } 
+            else {
+                setProduits(data);
+            }
+        }
+        fetchProduits();
+    }, []);
 
-  const produitsFiltres = produits.filter(
-    (produit) =>
-      (!categorieFiltre || produit.categorie.toLowerCase() === categorieFiltre.toLowerCase()) &&
-      produit.nom.toLowerCase().includes(recherche.toLowerCase())
-  );
+    const produitsFiltres = produits.filter(
+        (produit) =>
+        (!categorieFiltre || produit.categorie.toLowerCase() === categorieFiltre.toLowerCase()) &&
+        produit.nom.toLowerCase().includes(recherche.toLowerCase())
+    );
 
-  return (
-    <div>
-      <h1 className="text-3xl font-bold mb-4">Nos Produits</h1>
+    return (
+        <div>
+            <h1 className="text-3xl font-bold mb-4">Nos Produits</h1>
 
-      {/* 🔹 Barre de recherche */}
-      <input
-        type="text"
-        placeholder="Rechercher un produit..."
-        value={recherche}
-        onChange={(e) => setRecherche(e.target.value)}
-        className="w-full p-2 mb-4 border rounded"
-      />
+            {/*Barre de recherche */}
+            <input
+                type="text"
+                placeholder="Rechercher un produit..."
+                value={recherche}
+                onChange={(e) => setRecherche(e.target.value)}
+                className="w-full p-2 mb-4 border rounded"
+            />
 
-      {/* 🔹 Filtres de catégorie */}
-      <div className="mb-4">
-        <button onClick={() => setCategorieFiltre(null)} className="px-4 py-2 mr-2 bg-gray-300 rounded">
-          Tous
-        </button>
-        <button onClick={() => setCategorieFiltre("maquillage")} className="px-4 py-2 mr-2 bg-blue-500 text-white rounded">
-          Maquillage
-        </button>
-        <button onClick={() => setCategorieFiltre("soin")} className="px-4 py-2 bg-green-500 text-white rounded">
-          Soin
-        </button>
-      </div>
-
-      {/* 🔹 Liste des produits */}
-      <div>
-        {produitsFiltres.length === 0 ? (
-          <p>Aucun produit trouvé</p>
-        ) : (
-          <div className="grid grid-cols-3 gap-4">
-            {produitsFiltres.map((produit) => (
-              <div key={produit.id} className="border p-4">
-                <Link href={`/produit/${produit.id}`}>
-                  <h2 className="text-xl cursor-pointer text-blue-600 hover:underline">{produit.nom}</h2>
-                  <img src={produit.image} alt={produit.nom} className="w-full h-40 object-cover" />
-                </Link>
-                <p>{produit.description}</p>
-                <p className="text-lg font-bold">{produit.prix} €</p>
-                <button
-                  onClick={() => ajouterAuPanier({ ...produit, quantite: 1 })}
-                  className="mt-2 p-2 bg-blue-500 text-white rounded"
-                >
-                  Ajouter au panier
+            {/*Filtres de catégorie */}
+            <div className="mb-4">
+                <button onClick={() => setCategorieFiltre(null)} className="px-4 py-2 mr-2 bg-gray-300 rounded">
+                Tous
                 </button>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
+                <button onClick={() => setCategorieFiltre("maquillage")} className="px-4 py-2 mr-2 bg-blue-500 text-white rounded">
+                Maquillage
+                </button>
+                <button onClick={() => setCategorieFiltre("soin")} className="px-4 py-2 bg-green-500 text-white rounded">
+                Soin
+                </button>
+            </div>
+
+            {/*Liste des produits */}
+            <div>
+                {produitsFiltres.length === 0 ? (
+                <p>Aucun produit trouvé</p>
+                ) : (
+                <div className="grid grid-cols-3 gap-4">
+                    {produitsFiltres.map((produit) => (
+                    <div key={produit.id} className="border p-4">
+                        <Link href={`/produit/${produit.id}`}>
+                        <h2 className="text-xl cursor-pointer text-blue-600 hover:underline">{produit.nom}</h2>
+                        <img src={produit.image} alt={produit.nom} className="w-full h-40 object-cover" />
+                        </Link>
+                        <p>{produit.description}</p>
+                        <p className="text-lg font-bold">{produit.prix} €</p>
+                        <button
+                        onClick={() => ajouterAuPanier({ ...produit, quantite: 1 })}
+                        className="mt-2 p-2 bg-blue-500 text-white rounded"
+                        >
+                        Ajouter au panier
+                        </button>
+                    </div>
+                    ))}
+                </div>
+                )}
+            </div>
+        </div>
+    );
 }

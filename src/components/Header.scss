@@ -17,10 +17,55 @@
 
         &_links{
             display : flex;
+            align-items: center;
             gap : 2vw;
 
+            &-link{
+                color : #FFFFFF;
+            }
+
             &-cart{
+                position : relative;
                 display : flex;
+
+                &--length{
+                    position : absolute;
+                    right : -17px;
+                    bottom : -5px;
+                    display : flex;
+                    justify-content: center;
+                    align-items: center;
+                    width : 20px;
+                    height : 20px;
+                    border-radius : 100vmax;
+                    background-color: #FFFFFF;
+
+                    p{
+                        color : #6B4927;
+                    }
+                }
+            }
+
+            &-search{
+                position : relative;
+                width : 20vw;
+                border-radius : 100vmax;
+                background-color: #FFFFFF;
+
+                input{
+                    width : 20vw;
+                    height : 100%;
+                    outline : none;
+                    background-color: transparent;
+                    padding : 5px 20px;
+                }
+
+                .search{
+                    position : absolute;
+                    top : 50%;
+                    right : 10px;
+                    transform : translateY(-50%);
+                }
             }
         }
     }

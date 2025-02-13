@@ -18,25 +18,35 @@ export default function Header() {
 
             <nav className="nav">
                 <div className="nav_links">
-                    <Link href="/panier" className="">
+                    <Link href="/panier" className="nav_links-link">
                         Produits
                     </Link>
-                    <Link href="/panier" className="">
+                    <Link href="/panier" className="nav_links-link">
                         Diagnostic
                     </Link>
-                    <Link href="/panier" className="">
+                    <Link href="/panier" className="nav_links-link">
                         A propos
                     </Link>
                 </div>
                 <div className="nav_links">
-                    <Link href="/panier" className="">
-                        <Image src={search} alt="Barre de recherche"/>
-                    </Link>
+                    <div className="nav_links-search">
+                        <input
+                            type="text"
+                            placeholder="Rechercher un produit..." 
+                        />
+                        <Image src={search} alt="Barre de recherche" className="search"/>
+                    </div>
+                    
+                    
+                   
                     <Link href="/panier" className="">
                         <Image src={heart} alt="Favoris"/>
                     </Link>
                     <Link href="/panier" className="nav_links-cart">
-                        <Image src={cart} alt="Panier"/> ({panier.length})
+                        <Image src={cart} alt="Panier"/> 
+                        <div className="nav_links-cart--length">
+                            <p>{panier.length}</p>
+                        </div>
                     </Link>
                 </div>
             </nav>
