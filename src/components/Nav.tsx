@@ -1,6 +1,8 @@
 "use client";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import Panier from "./Panier"; 
 import { useCart } from "../context/CartContext";
 import { useSearch } from "../context/SearchContext"; 
 
@@ -13,8 +15,10 @@ import search from "../assets/search.svg";
 export default function Nav() {
     const { panier } = useCart();
     const { recherche, setRecherche } = useSearch();
+    const [panierOpen, setPanierOpen] = useState(false); 
 
     return (
+        <>
         <nav className="nav">
             <div className="nav_links">
                 <Link href="/" className="nav_links-link">
@@ -40,13 +44,16 @@ export default function Nav() {
                 <Link href="/" className="">
                     <Image src={heart} alt="Favoris" className="nav_links-icon"/>
                 </Link>
-                <Link href="/panier" className="nav_links-cart">
+                <div className="nav_links-cart" onClick={() => setPanierOpen(!panierOpen)}>
                     <Image src={cart} alt="Panier" className="nav_links-icon"/> 
                     <div className="nav_links-cart--length">
                         <p>{panier.length}</p>
                     </div>
-                </Link>
+                </div>
             </div>
         </nav>
+
+        <Panier isOpen={panierOpen} closePanier={() => setPanierOpen(false)} />
+    </>
     );
 }

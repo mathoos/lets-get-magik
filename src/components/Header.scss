@@ -9,8 +9,6 @@
 
         &-blocLeft{  
             display : flex;
-            // justify-content: center;
-            // align-items: center;
             width : 60vw;
             padding : 30vh 0 0 10vw;
 
@@ -34,13 +32,23 @@
         }
 
         &-blocRight{
+            position : relative;
             width : 40vw;
 
             &--img{
+
                 img{
                     width : 100%;
                     height : 100vh;
                     object-fit: cover;
+
+                    &.sun{
+                        position : absolute;
+                        top : 15vw;
+                        right : 20vw;
+                        width : 3vw;
+                        height : 3vw;
+                    }
                 }
             }  
         } 
