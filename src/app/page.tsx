@@ -5,6 +5,7 @@ import Image from "next/image";
 import supabase from "@/lib/supabase";
 import { useCart } from "../context/CartContext"; 
 import { useSearch } from "../context/SearchContext"; 
+import Header from "../components/Header";
 
 import "./page.scss";
 import search from "../assets/search.svg";
@@ -46,6 +47,7 @@ export default function Home() {
 
     return (
         <div className="home">
+            <Header />
 
             <div className="home_search">
 
@@ -91,19 +93,18 @@ export default function Home() {
                 ) : (
                 <div className="home_produits-container">
                     {produitsFiltres.map((produit) => (
-                    <div key={produit.id} className="produit">
-                        <Link href={`/produit/${produit.id}`} className="produit_link">
-                            <h2>{produit.nom}</h2>
-                            <img src={produit.image} alt={produit.nom} className="produit_link-img"/>
-                        </Link>
-                        <div className="produit_info">
-                            <p>{produit.prix} €</p>
-                            <button onClick={() => ajouterAuPanier({ ...produit, quantite: 1 })}>
-                                Ajouter au panier
-                            </button>
+                        <div key={produit.id} className="produit">
+                            <Link href={`/produit/${produit.id}`} className="produit_link">
+                                <h2>{produit.nom}</h2>
+                                <img src={produit.image} alt={produit.nom} className="produit_link-img"/>
+                            </Link>
+                            <div className="produit_info">
+                                <p>{produit.prix} €</p>
+                                <button onClick={() => ajouterAuPanier({ ...produit, quantite: 1 })}>
+                                    Ajouter au panier
+                                </button>
+                            </div>
                         </div>
-                        
-                    </div>
                     ))}
                 </div>
                 )}

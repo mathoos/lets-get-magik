@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "../styles/globals.css";
-import Header from "../components/Header";
+import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import { CartProvider } from "../context/CartContext";
 import { SearchProvider } from "../context/SearchContext";
@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <body className="flex flex-col min-h-screen">
                 <CartProvider>
                     <SearchProvider> 
-                        <Header />
+                        <Nav />
                         <main>{children}</main>
                         <Footer />
                     </SearchProvider>

@@ -1,0 +1,49 @@
+.page-produit{
+    display : flex;
+    width : 100%;
+    height : 100vh;
+    background-color: #F8EDE3;
+
+    &_left{
+        display : flex;
+        width : 52vw;
+
+        &-imgPrincipale{
+            width : 40vw;
+
+            img{
+                width : 100%;
+                height : 100%;
+                object-fit: cover;
+            }
+        }
+
+        &-imgSecondaires{
+            display : flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            gap : 2vw;
+            width : 12vw;
+            padding : 2vw;
+            background-color: orange;
+            
+            img{
+                width : 8vw;
+                height : 8vw;
+            }
+        }
+    }
+
+    &_right{
+        display : flex;
+        align-items: flex-end;
+        width : 48vw;
+        padding : 2vw;
+        background-color: green;
+
+        &-info{
+            border : 1px solid red;
+        }
+
+    }
+}

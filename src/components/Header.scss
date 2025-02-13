@@ -3,76 +3,7 @@
     background-color: #F8EDE3;
     padding-bottom : 20vh;
 
-    .nav{
-        position : fixed;
-        top : 0;
-        left : 0;
-        display : flex;
-        justify-content: space-between;
-        width : 100%;
-        padding : 1vw 5vw;
-        background-color: #6B4927;
-        z-index : 10;
-
-        &_links{
-            display : flex;
-            align-items: center;
-            gap : 2vw;
-
-            &-link{
-                color : #FFFFFF;
-            }
-
-            &-icon{
-                width : 25px;
-                height : 25px;
-            }
-
-            &-cart{
-                position : relative;
-                display : flex;
-
-                &--length{
-                    position : absolute;
-                    right : -17px;
-                    bottom : -5px;
-                    display : flex;
-                    justify-content: center;
-                    align-items: center;
-                    width : 20px;
-                    height : 20px;
-                    border-radius : 100vmax;
-                    background-color: #FFFFFF;
-
-                    p{
-                        color : #6B4927;
-                    }
-                }
-            }
-
-            &-search{
-                position : relative;
-                width : 20vw;
-                border-radius : 100vmax;
-                background-color: #FFFFFF;
-
-                input{
-                    width : 20vw;
-                    height : 100%;
-                    outline : none;
-                    background-color: transparent;
-                    padding : 5px 20px;
-                }
-
-                .search{
-                    position : absolute;
-                    top : 50%;
-                    right : 10px;
-                    transform : translateY(-50%);
-                }
-            }
-        }
-    }
+    
 
     &_container{
         position : relative;
