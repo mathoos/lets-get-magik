@@ -3,7 +3,7 @@ import "../styles/globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { CartProvider } from "../context/CartContext";
-import { SearchProvider } from "../context/SearchContext"; // 🔹 Import du SearchProvider
+import { SearchProvider } from "../context/SearchContext";
 
 export const metadata: Metadata = {
     title: "Mon E-Commerce",
@@ -15,9 +15,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <html lang="fr">
             <body className="flex flex-col min-h-screen">
                 <CartProvider>
-                    <SearchProvider> {/* 🔹 Ajout du SearchProvider */}
+                    <SearchProvider> 
                         <Header />
-                        <main className="flex-grow container mx-auto p-4">{children}</main>
+                        <main>{children}</main>
                         <Footer />
                     </SearchProvider>
                 </CartProvider>

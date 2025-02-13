@@ -1,0 +1,90 @@
+.home{
+    width : 100%;
+
+    &_search{
+        display : flex;
+        justify-content: space-between;
+        padding : 10vh 10vw;
+        background-color : #E6D2C6;
+
+        &-tags{
+            display : flex;
+            gap : 2vw;
+
+            .tag{
+                background-color: #F8EDE3;
+                color : #6B4927;
+                padding : 1vh 30px;
+
+                &.active{
+                    background-color: #6B4927;
+                    color : #F8EDE3;
+                }
+            }
+        }
+
+        &-barre{
+            position : relative;
+            width : 20vw;
+            border-radius : 100vmax;
+            background-color: #FFFFFF;
+
+            input{
+                width : 20vw;
+                height : 100%;
+                outline : none;
+                background-color: transparent;
+                padding : 5px 20px;
+            }
+
+            .icon-search{
+                position : absolute;
+                top : 50%;
+                right : 10px;
+                transform : translateY(-50%);
+            }
+        }
+    }
+
+    &_produits{
+        padding : 10vh 10vw;
+        background-color: #F8EDE3;
+
+        &-container{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap : 5vw;
+
+            .produit{
+                display : flex;
+                flex-direction: column;
+                gap : 30px;
+                background-color: #FFFFFF;
+                border : 1px dashed #6B4927;
+                padding : 30px;
+
+                &_link{
+                    display : flex;
+                    flex-direction: column;
+                    gap : 15px;
+
+                    h2{
+                        color : #6B4927;
+                        font-weight: bold;
+                    }
+
+                    &-img{
+                        width : 100%;
+                        height : 20vw;
+                        object-fit: cover;
+                    }
+                }
+
+                &_info{
+                    display : flex;
+                    justify-content: space-between;
+                }
+            }
+        }
+    }
+}

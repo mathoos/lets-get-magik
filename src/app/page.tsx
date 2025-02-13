@@ -1,9 +1,13 @@
 "use client";
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import supabase from "@/lib/supabase";
 import { useCart } from "../context/CartContext"; 
 import { useSearch } from "../context/SearchContext"; 
+
+import "./page.scss";
+import search from "../assets/search.svg";
 
 type Produit = {
     id: string;
@@ -36,56 +40,69 @@ export default function Home() {
 
     const produitsFiltres = produits.filter(
         (produit) =>
-        (!categorieFiltre || produit.categorie.toLowerCase() === categorieFiltre.toLowerCase()) &&
+        (!categorieFiltre || produit.categorie === categorieFiltre) &&
         produit.nom.toLowerCase().includes(recherche.toLowerCase())
     );
 
     return (
-        <div>
-            <h1 className="text-3xl font-bold mb-4">Nos Produits</h1>
+        <div className="home">
 
-            {/*Barre de recherche */}
-            <input
-                type="text"
-                placeholder="Rechercher un produit..."
-                value={recherche}
-                onChange={(e) => setRecherche(e.target.value)}
-                className="w-full p-2 mb-4 border rounded"
-            />
+            <div className="home_search">
 
-            {/*Filtres de catégorie */}
-            <div className="mb-4">
-                <button onClick={() => setCategorieFiltre(null)} className="px-4 py-2 mr-2 bg-gray-300 rounded">
-                Tous
-                </button>
-                <button onClick={() => setCategorieFiltre("maquillage")} className="px-4 py-2 mr-2 bg-blue-500 text-white rounded">
-                Maquillage
-                </button>
-                <button onClick={() => setCategorieFiltre("soin")} className="px-4 py-2 bg-green-500 text-white rounded">
-                Soin
-                </button>
+                {/*Filtres de catégorie */}
+                <div className="home_search-tags">
+                    <button 
+                        onClick={() => setCategorieFiltre(null)}
+                        className={`tag ${categorieFiltre === null ? "active" : ""}`}
+                    >
+                        Tous
+                    </button>
+                    <button 
+                        onClick={() => setCategorieFiltre("Maquillage")}
+                        className={`tag ${categorieFiltre === "Maquillage" ? "active" : ""}`}
+                    >
+                        Maquillage
+                    </button>
+                    <button 
+                        onClick={() => setCategorieFiltre("Soin")}
+                        className={`tag ${categorieFiltre === "Soin" ? "active" : ""}`}
+                    >
+                        Soin
+                    </button>
+                </div>
+
+                {/*Barre de recherche */}
+                <div className="home_search-barre">
+                    <input
+                        type="text"
+                        placeholder="Rechercher un produit..." 
+                        value={recherche}
+                        onChange={(e) => setRecherche(e.target.value)} 
+                    />
+                    <Image src={search} alt="Barre de recherche" className="icon-search"/>
+                </div>
+
             </div>
 
             {/*Liste des produits */}
-            <div>
+            <div className="home_produits">
                 {produitsFiltres.length === 0 ? (
                 <p>Aucun produit trouvé</p>
                 ) : (
-                <div className="grid grid-cols-3 gap-4">
+                <div className="home_produits-container">
                     {produitsFiltres.map((produit) => (
-                    <div key={produit.id} className="border p-4">
-                        <Link href={`/produit/${produit.id}`}>
-                        <h2 className="text-xl cursor-pointer text-blue-600 hover:underline">{produit.nom}</h2>
-                        <img src={produit.image} alt={produit.nom} className="w-full h-40 object-cover" />
+                    <div key={produit.id} className="produit">
+                        <Link href={`/produit/${produit.id}`} className="produit_link">
+                            <h2>{produit.nom}</h2>
+                            <img src={produit.image} alt={produit.nom} className="produit_link-img"/>
                         </Link>
-                        <p>{produit.description}</p>
-                        <p className="text-lg font-bold">{produit.prix} €</p>
-                        <button
-                        onClick={() => ajouterAuPanier({ ...produit, quantite: 1 })}
-                        className="mt-2 p-2 bg-blue-500 text-white rounded"
-                        >
-                        Ajouter au panier
-                        </button>
+                        <div className="produit_info">
+                            <p>{produit.prix} €</p>
+                            <button onClick={() => ajouterAuPanier({ ...produit, quantite: 1 })}>
+                                Ajouter au panier
+                            </button>
+                        </div>
+                        
                     </div>
                     ))}
                 </div>
