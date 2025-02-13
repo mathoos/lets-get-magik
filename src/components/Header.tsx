@@ -34,16 +34,13 @@ export default function Header() {
                             type="text"
                             placeholder="Rechercher un produit..." 
                         />
-                        <Image src={search} alt="Barre de recherche" className="search"/>
+                        <Image src={search} alt="Barre de recherche" className="nav_links-icon search"/>
                     </div>
-                    
-                    
-                   
                     <Link href="/panier" className="">
-                        <Image src={heart} alt="Favoris"/>
+                        <Image src={heart} alt="Favoris" className="nav_links-icon"/>
                     </Link>
                     <Link href="/panier" className="nav_links-cart">
-                        <Image src={cart} alt="Panier"/> 
+                        <Image src={cart} alt="Panier" className="nav_links-icon"/> 
                         <div className="nav_links-cart--length">
                             <p>{panier.length}</p>
                         </div>
