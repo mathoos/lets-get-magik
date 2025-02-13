@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import "./Header.scss";
 import headerImage from "../assets/headerImg.jpg";
-import headerImage2 from "../assets/headerImg2.jpg";
+import headerImage2 from "../assets/headerImg9.jpg";
 
 
 export default function Header() {

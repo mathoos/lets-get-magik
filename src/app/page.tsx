@@ -48,10 +48,17 @@ export default function Home() {
         <div className="home">
             <Header />
 
+            {/* <div className="home_subtitle">
+                <p>Nos formules sont : courtes, concentrées, fabriquées en France</p>
+            </div> */}
+
             <div className="home_search">
+                <h2>Nos produits</h2>
 
                 {/*Filtres de catégorie */}
                 <div className="home_search-tags">
+                    
+                
                     <button 
                         onClick={() => setCategorieFiltre(null)}
                         className={`tag ${categorieFiltre === null ? "active" : ""}`}
@@ -62,18 +69,25 @@ export default function Home() {
                         onClick={() => setCategorieFiltre("Maquillage")}
                         className={`tag ${categorieFiltre === "Maquillage" ? "active" : ""}`}
                     >
-                        Maquillage
+                        Crèmes
                     </button>
                     <button 
                         onClick={() => setCategorieFiltre("Soin")}
                         className={`tag ${categorieFiltre === "Soin" ? "active" : ""}`}
                     >
-                        Soin
+                        Soins
                     </button>
+                    <button 
+                        onClick={() => setCategorieFiltre("Soin")}
+                        className={`tag ${categorieFiltre === "Soin" ? "active" : ""}`}
+                    >
+                        Sérums
+                    </button>
+                 
                 </div>
 
                 {/*Barre de recherche */}
-                <div className="home_search-barre">
+                {/* <div className="home_search-barre">
                     <input
                         type="text"
                         placeholder="Rechercher un produit..." 
@@ -81,7 +95,7 @@ export default function Home() {
                         onChange={(e) => setRecherche(e.target.value)} 
                     />
                     <Image src={search} alt="Barre de recherche" className="icon-search"/>
-                </div>
+                </div> */}
 
             </div>
 
