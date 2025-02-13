@@ -52,22 +52,19 @@ export default function ProduitPage() {
             <div className="page-produit_right">
                 <div className="page-produit_right-info">
                     <h1>{produit.nom}</h1>
-                    
-                    <p className="">{produit.description}</p>
-                    <p className="">{produit.details}</p>
-                    <p className="">{produit.prix} €</p>
-                    <button
-                        onClick={() => ajouterAuPanier({ ...produit, quantite: 1 })}
-                        className=""
-                    >
-                        Ajouter au panier
-                    </button>
+                    <p className="subtitle">{produit.description}</p>
+                    <p className="text">{produit.details}</p>
+                    <div className="page-produit_right-info--bottom">
+                        <p className="price">{produit.prix} €</p>
+                        <button
+                            onClick={() => ajouterAuPanier({ ...produit, quantite: 1 })}
+                            className="bouton"
+                        >
+                            Ajouter au panier
+                        </button>
+                    </div>
                 </div>
-                
-            </div>
-
-
-            
+            </div> 
         </div>
     );
 }
