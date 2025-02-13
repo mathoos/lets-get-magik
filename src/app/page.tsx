@@ -1,14 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import supabase from "@/lib/supabase";
 import { useCart } from "../context/CartContext"; 
 import { useSearch } from "../context/SearchContext"; 
 import Header from "../components/Header";
 
 import "./page.scss";
-import search from "../assets/search.svg";
 
 type Produit = {
     id: string;
@@ -23,7 +21,7 @@ export default function Home() {
     const [produits, setProduits] = useState<Produit[]>([]);
     const [categorieFiltre, setCategorieFiltre] = useState<string | null>(null);
     const { ajouterAuPanier } = useCart();
-    const { recherche, setRecherche } = useSearch();
+    const { recherche } = useSearch();
 
     useEffect(() => {
         async function fetchProduits() {
@@ -48,9 +46,9 @@ export default function Home() {
         <div className="home">
             <Header />
 
-            {/* <div className="home_subtitle">
+            <div className="home_subtitle">
                 <p>Nos formules sont : courtes, concentrées, fabriquées en France</p>
-            </div> */}
+            </div>
 
             <div className="home_search">
                 <h2>Nos produits</h2>
@@ -85,17 +83,6 @@ export default function Home() {
                     </button>
                  
                 </div>
-
-                {/*Barre de recherche */}
-                {/* <div className="home_search-barre">
-                    <input
-                        type="text"
-                        placeholder="Rechercher un produit..." 
-                        value={recherche}
-                        onChange={(e) => setRecherche(e.target.value)} 
-                    />
-                    <Image src={search} alt="Barre de recherche" className="icon-search"/>
-                </div> */}
 
             </div>
 

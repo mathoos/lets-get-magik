@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "../context/CartContext";
+import { useSearch } from "../context/SearchContext"; 
 
 import "./Nav.scss";
 
@@ -11,6 +12,7 @@ import search from "../assets/search.svg";
 
 export default function Nav() {
     const { panier } = useCart();
+    const { recherche, setRecherche } = useSearch();
 
     return (
         <nav className="nav">
@@ -30,6 +32,8 @@ export default function Nav() {
                     <input
                         type="text"
                         placeholder="Rechercher un produit..." 
+                        value={recherche}
+                        onChange={(e) => setRecherche(e.target.value)} 
                     />
                     <Image src={search} alt="Barre de recherche" className="nav_links-icon search"/>
                 </div>
