@@ -13,7 +13,7 @@ type Produit = {
     details: string;
     prix: number;
     image: string;
-    quantite: number;
+    images: string[];
 };
 
 export default function ProduitPage() {
@@ -23,16 +23,23 @@ export default function ProduitPage() {
 
     useEffect(() => {
         async function fetchProduit() {
-            const { data, error } = await supabase.from("produits").select("*").eq("id", id).single();
+            const { data, error } = await supabase
+                .from("produits")
+                .select("id, nom, description, details, prix, image, images")
+                .eq("id", id)
+                .single();
+    
             if (error) {
                 console.error("Erreur de chargement du produit", error);
-            } 
-            else {
-                setProduit(data);
+            } else {
+                // Convertir la chaîne en tableau
+                const imagesArray = data.images ? data.images.split(",") : [];  
+                setProduit({ ...data, images: imagesArray });
             }
         }
         fetchProduit();
     }, [id]);
+    
 
     if (!produit) return <p>Chargement...</p>;
 
@@ -43,9 +50,16 @@ export default function ProduitPage() {
                     <img src={produit.image} alt={produit.nom}/>
                 </figure>
                 <figure className="page-produit_left-imgSecondaires">
-                    <img src={produit.image} alt={produit.nom}/>
-                    <img src={produit.image} alt={produit.nom}/>
-                    <img src={produit.image} alt={produit.nom}/>
+                    {produit.images.length > 0 ? (
+                        produit.images.map((img, index) => (
+                            <img key={index} src={img} alt={`${produit.nom} - ${index + 1}`} />
+                        ))
+                    ) : (
+                        // Si pas d'images secondaires, afficher 3 fois l'image principale
+                        [...Array(3)].map((_, index) => (
+                            <img key={index} src={produit.image} alt={`${produit.nom} - principale`} />
+                        ))
+                    )}
                 </figure>
             </div>
 

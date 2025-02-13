@@ -16,7 +16,6 @@ type Produit = {
     description: string;
     prix: number;
     image: string;
-    quantite: number;
     categorie: string; 
 };
 
