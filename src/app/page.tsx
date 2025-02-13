@@ -24,7 +24,7 @@ export default function Home() {
     const [produits, setProduits] = useState<Produit[]>([]);
     const [categorieFiltre, setCategorieFiltre] = useState<string | null>(null);
     const { ajouterAuPanier } = useCart();
-    const { recherche, setRecherche } = useSearch(); // 🔹 Utilisation du contexte de recherche
+    const { recherche, setRecherche } = useSearch();
 
     useEffect(() => {
         async function fetchProduits() {

@@ -15,13 +15,13 @@ export default function Nav() {
     return (
         <nav className="nav">
             <div className="nav_links">
-                <Link href="/panier" className="nav_links-link">
-                    Produits
+                <Link href="/" className="nav_links-link">
+                    Home
                 </Link>
-                <Link href="/panier" className="nav_links-link">
+                <Link href="/diagnostic" className="nav_links-link">
                     Diagnostic
                 </Link>
-                <Link href="/panier" className="nav_links-link">
+                <Link href="/a-propos" className="nav_links-link">
                     A propos
                 </Link>
             </div>
@@ -33,7 +33,7 @@ export default function Nav() {
                     />
                     <Image src={search} alt="Barre de recherche" className="nav_links-icon search"/>
                 </div>
-                <Link href="/panier" className="">
+                <Link href="/" className="">
                     <Image src={heart} alt="Favoris" className="nav_links-icon"/>
                 </Link>
                 <Link href="/panier" className="nav_links-cart">
