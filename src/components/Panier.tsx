@@ -1,11 +1,12 @@
 "use client";
+import Link from "next/link";
 import { useCart } from "../context/CartContext";
 import { FaTrash } from "react-icons/fa";
 import "./Panier.scss";
 
 export default function Panier({ isOpen, closePanier }: { isOpen: boolean; closePanier: () => void }) {
 
-    const { panier, ajouterAuPanier, retirerDuPanier, viderPanier, calculerTotal } = useCart();
+    const { panier, ajouterAuPanier, retirerDuPanier, calculerTotal } = useCart();
     
 
 
@@ -17,12 +18,12 @@ export default function Panier({ isOpen, closePanier }: { isOpen: boolean; close
                 <h2>Mon Panier</h2>
             </div>
 
-            <div className="panier_container">
+            
 
                 {panier.length === 0 ? (
                     <p>Votre panier est vide.</p>
                 ) : (
-                    <div>
+                    <div className="panier_container">
 
                         <div className="panier_container-produits">
                             {panier.map((produit) => (
@@ -52,27 +53,15 @@ export default function Panier({ isOpen, closePanier }: { isOpen: boolean; close
                         </div>
 
                 
-                        <div className="bg-gray-100 p-4 rounded-lg shadow-md text-right">
-                            <h2 className="text-2xl font-semibold">Total : {calculerTotal()} €</h2>
+                        <div className="panier_container-total">
+                            <h2 className="">Total : {calculerTotal()} €</h2>
+                            <Link href="/panier" className="bouton">Voir mon panier</Link>
                         </div>
 
-                  
-                        <button
-                            onClick={viderPanier}
-                            className="bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-900 w-full mt-4"
-                        >
-                            Vider le panier
-                        </button>
-
-                        
                     </div>
                 )}
 
-            </div>
-
-            
-
-            
+         
 
         </div>
     );
