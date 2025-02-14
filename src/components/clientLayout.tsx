@@ -13,7 +13,7 @@ const ClientLayout = ({ children }: { children: React.ReactNode }) => {
         <>
             {!isAdminPanel && <Nav />}
             <main>{children}</main>
-            <Footer />
+            {!isAdminPanel && <Footer />}
         </>
     );
 };

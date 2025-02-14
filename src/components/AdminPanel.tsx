@@ -131,7 +131,30 @@ const AdminPanel = () => {
 
                 <div className="panel_container">
                     <h1>Tous mes produits</h1>
-                    <div className="panel_container-sort"></div>
+
+                    <div className="produit produit_sort">
+                        <div className="produit_info">
+                            <div className="produit_info-img">
+                                <h3>Image</h3>
+                            </div>
+                            <div className="produit_info-title">
+                                <h3>Titre</h3>
+                            </div>
+                            <div className="produit_info-categorie">
+                                <h3>Catégorie</h3>
+                            </div>
+                            <div className="produit_info-description">
+                                <h3>Description</h3>
+                            </div>
+                            <div className="produit_info-prix">
+                                <h3>Prix</h3>
+                            </div>     
+                        </div>
+                        <div className="produit_buttons">
+                            <h3>Vide</h3>
+                        </div>
+                    </div>
+
                     <div className="panel_container-produits">
                         {produits.map((produit) => (
                             <div key={produit.id} className="produit">
