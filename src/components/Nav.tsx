@@ -44,12 +44,12 @@ export default function Nav() {
                 <Link href="/" className="">
                     <Image src={heart} alt="Favoris" className="nav_links-icon"/>
                 </Link>
-                <div className="nav_links-cart" onClick={() => setPanierOpen(!panierOpen)}>
+                <button className="nav_links-cart" onClick={() => setPanierOpen(!panierOpen)}>
                     <Image src={cart} alt="Panier" className="nav_links-icon"/> 
                     <div className="nav_links-cart--length">
                         <p>{panier.length}</p>
                     </div>
-                </div>
+                </button>
             </div>
         </nav>
 

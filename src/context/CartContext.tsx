@@ -39,8 +39,16 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   // Retirer un produit du panier
   const retirerDuPanier = (id: string) => {
-    setPanier((prevPanier) => prevPanier.filter((produit) => produit.id !== id));
-  };
+    setPanier((prevPanier) =>
+        prevPanier
+            .map((produit) =>
+                produit.id === id
+                    ? { ...produit, quantite: produit.quantite - 1 }
+                    : produit
+            )
+            .filter((produit) => produit.quantite > 0) // Supprime uniquement si la quantité devient 0
+    );
+};
 
   // Vider le panier
   const viderPanier = () => {
