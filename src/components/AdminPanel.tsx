@@ -13,6 +13,7 @@ type Produit = {
     description: string;
     prix: number;
     image: string;
+    categorie: string;
     details: string;
 };
 
@@ -23,6 +24,7 @@ const AdminPanel = () => {
     const [prix, setPrix] = useState<number | string>("");
     const [image, setImage] = useState("");
     const [details, setDetails] = useState("");
+    const [categorie, setCategorie] = useState("");
     const [selectedProduit, setSelectedProduit] = useState<Produit | null>(null);
     const router = useRouter();
 
@@ -128,27 +130,39 @@ const AdminPanel = () => {
                 </div>
 
                 <div className="panel_container">
+                    <h1>Tous mes produits</h1>
+                    <div className="panel_container-sort"></div>
                     <div className="panel_container-produits">
                         {produits.map((produit) => (
                             <div key={produit.id} className="produit">
-                                <img src={produit.image} alt={produit.nom}/>
-                                <h3>{produit.nom}</h3>
-                                
-                                <p>{produit.description}</p>
-                                <p>{produit.details}</p>
-                                <p>Prix: {produit.prix}€</p>
-                                <button
-                                onClick={() => handleEditProduct(produit.id)}
-                                
-                                >
-                                Modifier
-                                </button>
-                                <button
-                                onClick={() => handleDeleteProduct(produit.id)}
-                                
-                                >
-                                Supprimer
-                                </button>
+                                <div className="produit_info">
+                                    <figure className="produit_info-img">
+                                        <img src={produit.image} alt={produit.nom}/>
+                                    </figure>
+                                    <div className="produit_info-title">
+                                        <h3>{produit.nom}</h3> 
+                                    </div>
+                                    <div className="produit_info-categorie">
+                                        <p>{produit.categorie}</p>
+                                    </div>
+                                    <div className="produit_info-description">
+                                        <p>{produit.description}</p>
+                                    </div>
+                                    <div className="produit_info-prix">
+                                        <p>{produit.prix}€</p>
+                                    </div>     
+                                </div>
+                                <div className="produit_buttons">
+                                    <button onClick={() => handleEditProduct(produit.id)}>
+                                        Modifier
+                                    </button>
+                                    <button onClick={() => handleDeleteProduct(produit.id)}>
+                                        Supprimer
+                                    </button>
+                                    <button>
+                                        Voir
+                                    </button>
+                                </div>
                             </div>
                         ))}
                     </div>
