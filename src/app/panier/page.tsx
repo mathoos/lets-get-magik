@@ -93,14 +93,6 @@ export default function PanierPage() {
                         <h2 className="text-2xl font-semibold">Total : {calculerTotal()} €</h2>
                     </div>
 
-                    {/* Bouton pour vider le panier */}
-                    <button
-                        onClick={viderPanier}
-                        className="bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-900 w-full mt-4"
-                    >
-                        Vider le panier
-                    </button>
-
                     {/* Bouton pour lancer le paiement */}
                     <button
                         onClick={handlePaiement}
