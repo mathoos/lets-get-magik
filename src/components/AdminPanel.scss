@@ -1,0 +1,49 @@
+.panel{
+    position : relative;
+    display : flex;
+    justify-content: flex-end;
+    width : 100%;
+
+        &_barreLaterale{
+            position : fixed;
+            top : 0;
+            left : 0;
+            display : flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-start;
+            width : 20vw;
+            height : 100vh;
+            padding : 2vw;
+            background-color: #6B4927;
+            color : #F8EDE3;
+        }
+    
+        &_container{
+            width: calc(100vw - 20vw);
+            height : 100%;
+            margin-left : 20vw;
+            padding : 2vw;
+            background-color: #F8EDE3;
+    
+            &-produits{
+                display : flex;
+                flex-direction: column;
+                gap : 2vw;
+                border : 2px solid rgba(255, 166, 0, 0.677);
+    
+                .produit{
+                    display : flex;
+                    border : 2px solid blue;
+
+                    img{
+                        width : 5vw;
+                        height : 5vw;
+                    }
+                }
+            }
+        }
+ 
+
+    
+}

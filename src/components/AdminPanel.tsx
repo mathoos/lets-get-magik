@@ -1,7 +1,10 @@
 "use client";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import supabase from "@/lib/supabase";
+
+import "./AdminPanel.scss";
 
 
 type Produit = {
@@ -108,19 +111,56 @@ const AdminPanel = () => {
         await supabase.auth.signOut();
         router.push("/login"); 
     };
-  
+
+
 
     return (
-        <div>
+        <div className="panel">
 
-            <h2>
+
+                <div className="panel_barreLaterale">
+                    <Link href="/">
+                        Home
+                    </Link>
+                    <button onClick={handleLogout}>
+                        Déconnexion
+                    </button>
+                </div>
+
+                <div className="panel_container">
+                    <div className="panel_container-produits">
+                        {produits.map((produit) => (
+                            <div key={produit.id} className="produit">
+                                <img src={produit.image} alt={produit.nom}/>
+                                <h3>{produit.nom}</h3>
+                                
+                                <p>{produit.description}</p>
+                                <p>{produit.details}</p>
+                                <p>Prix: {produit.prix}€</p>
+                                <button
+                                onClick={() => handleEditProduct(produit.id)}
+                                
+                                >
+                                Modifier
+                                </button>
+                                <button
+                                onClick={() => handleDeleteProduct(produit.id)}
+                                
+                                >
+                                Supprimer
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+          
+
+            {/* <h2>
                 {selectedProduit ? "Modifier un produit" : "Ajouter un produit"}
-            </h2>
-            <button onClick={handleLogout}>
-                Déconnexion
-            </button>
+            </h2> */}
+            
 
-            <form onSubmit={selectedProduit ? handleUpdateProduct : handleAddProduct}>
+            {/* <form onSubmit={selectedProduit ? handleUpdateProduct : handleAddProduct}>
                 <div>
                     <label>Nom du produit</label>
                     <input
@@ -174,32 +214,10 @@ const AdminPanel = () => {
                         {selectedProduit ? "Mettre à jour le produit" : "Ajouter le produit"}
                     </button>
                 </div>
-            </form>
+            </form> */}
 
 
-            <h2 >Tous les produits</h2>
-            <div>
-                {produits.map((produit) => (
-                    <div key={produit.id} className="border p-4">
-                        <h3 className="font-semibold">{produit.nom}</h3>
-                        <img src={produit.image} alt={produit.nom} className="w-full h-40 object-cover" />
-                        <p>{produit.description}</p>
-                        <p>Prix: {produit.prix}€</p>
-                        <button
-                        onClick={() => handleEditProduct(produit.id)}
-                        className="mt-2 bg-yellow-500 text-white p-2 rounded"
-                        >
-                        Modifier
-                        </button>
-                        <button
-                        onClick={() => handleDeleteProduct(produit.id)}
-                        className="mt-2 bg-red-500 text-white p-2 rounded"
-                        >
-                        Supprimer
-                        </button>
-                    </div>
-                ))}
-            </div>
+            
         </div>
     );
 };
