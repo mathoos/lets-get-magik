@@ -13,7 +13,7 @@ type Produit = {
     description: string;
     prix: number;
     image: string;
-    categorie: string;
+    categorie: string; 
     details: string;
 };
 
@@ -24,9 +24,10 @@ const AdminPanel = () => {
     const [prix, setPrix] = useState<number | string>("");
     const [image, setImage] = useState("");
     const [details, setDetails] = useState("");
-    const [categorie, setCategorie] = useState("");
+    const [categorie, setCategorie] = useState<string>("");
     const [selectedProduit, setSelectedProduit] = useState<Produit | null>(null);
     const router = useRouter();
+    
 
     const [showForm, setShowForm] = useState(false);
 
@@ -47,7 +48,7 @@ const AdminPanel = () => {
     const handleAddProduct = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const produitData = { nom, description, prix, image, details };
+        const produitData = { nom, description, prix, image, categorie, details };
 
         const { error } = await supabase.from("produits").insert([produitData]);
 
@@ -197,7 +198,18 @@ const AdminPanel = () => {
                         </div>
                         <div>
                             <label>Catégorie</label>
-                            <input type="text" value={categorie} onChange={(e) => setCategorie(e.target.value)} required />
+                            <div>
+                            <select
+                            value={categorie}
+                            onChange={(e) => setCategorie(e.target.value)}
+                            required
+                        >
+                            <option value="" disabled>-- Sélectionnez une catégorie --</option>
+                            {["Soin", "Sérum", "Crème"].map((cat) => (
+                                <option key={cat} value={cat}>{cat}</option>
+                            ))}
+                            </select>
+                        </div>
                         </div>
                         <div>
                             <label>URL image</label>
