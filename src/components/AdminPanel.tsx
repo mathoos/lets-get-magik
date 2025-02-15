@@ -28,6 +28,8 @@ const AdminPanel = () => {
     const [selectedProduit, setSelectedProduit] = useState<Produit | null>(null);
     const router = useRouter();
 
+    const [showForm, setShowForm] = useState(false);
+
     // Récupérer les produits depuis la base de données
     useEffect(() => {
         const fetchProduits = async () => {
@@ -56,9 +58,11 @@ const AdminPanel = () => {
             alert("Produit ajouté avec succès !");
             setNom("");
             setDescription("");
+            setCategorie("");
             setPrix("");
             setImage("");
             setDetails("");
+            setShowForm(false);
         }
     };
 
@@ -79,9 +83,11 @@ const AdminPanel = () => {
             setSelectedProduit(produit);
             setNom(produit.nom);
             setDescription(produit.description);
+            setCategorie(produit.categorie);
             setPrix(produit.prix);
             setImage(produit.image);
             setDetails(produit.details);
+            setShowForm(true);
         }
     };
 
@@ -91,7 +97,7 @@ const AdminPanel = () => {
         if (selectedProduit) {
             const { error } = await supabase
                 .from("produits")
-                .update({ nom, description, prix, image, details })
+                .update({ nom, description, categorie, prix, image, details })
                 .eq("id", selectedProduit.id);
 
             if (error) {
@@ -101,10 +107,12 @@ const AdminPanel = () => {
                 alert("Produit mis à jour avec succès !");
                 setNom("");
                 setDescription("");
+                setCategorie("");
                 setPrix("");
                 setImage("");
                 setDetails("");
                 setSelectedProduit(null);
+                setShowForm(false);
             }
         }
     };
@@ -119,142 +127,96 @@ const AdminPanel = () => {
     return (
         <div className="panel">
 
+            <div className="panel_barreLaterale">
+                <Link href="/">
+                    Home
+                </Link>
+                <button onClick={() => setShowForm(true)}>
+                    Ajouter un produit
+                </button>
+                <button onClick={handleLogout}>
+                    Déconnexion
+                </button>
+            </div>
 
-                <div className="panel_barreLaterale">
-                    <Link href="/">
-                        Home
-                    </Link>
-                    <button onClick={handleLogout}>
-                        Déconnexion
-                    </button>
-                </div>
+            <div className="panel_container">
 
-                <div className="panel_container">
-                    <h1>Tous mes produits</h1>
+                {!showForm && (
+                    <>
+                        <h1>Tous mes produits</h1>
 
-                    <div className="produit produit_sort">
-                        <div className="produit_info">
-                            <div className="produit_info-img">
-                                <h3>Image</h3>
+                        <div className="produit produit_sort">
+                            <div className="produit_info">
+                                <div className="produit_info-img"><h3>Image</h3></div>
+                                <div className="produit_info-title"><h3>Titre</h3></div>
+                                <div className="produit_info-categorie"><h3>Catégorie</h3></div>
+                                <div className="produit_info-description"><h3>Description</h3></div>
+                                <div className="produit_info-prix"><h3>Prix</h3></div>
                             </div>
-                            <div className="produit_info-title">
-                                <h3>Titre</h3>
-                            </div>
-                            <div className="produit_info-categorie">
-                                <h3>Catégorie</h3>
-                            </div>
-                            <div className="produit_info-description">
-                                <h3>Description</h3>
-                            </div>
-                            <div className="produit_info-prix">
-                                <h3>Prix</h3>
-                            </div>     
+                            <div className="produit_buttons"><h3>Vide</h3></div>
                         </div>
-                        <div className="produit_buttons">
-                            <h3>Vide</h3>
+
+                        <div className="panel_container-produits">
+                            {produits.map((produit) => (
+                                <div key={produit.id} className="produit">
+                                    <div className="produit_info">
+                                        <figure className="produit_info-img">
+                                            <img src={produit.image} alt={produit.nom} />
+                                        </figure>
+                                        <div className="produit_info-title"><h3>{produit.nom}</h3></div>
+                                        <div className="produit_info-categorie"><p>{produit.categorie}</p></div>
+                                        <div className="produit_info-description"><p>{produit.description}</p></div>
+                                        <div className="produit_info-prix"><p>{produit.prix}€</p></div>
+                                        </div>
+                                    <div className="produit_buttons">
+                                        <button onClick={() => handleEditProduct(produit.id)}>Modifier</button>
+                                        <button onClick={() => handleDeleteProduct(produit.id)}>Supprimer</button>
+                                        <button>Voir</button>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                    </div>
+                    </>
+                )}
 
-                    <div className="panel_container-produits">
-                        {produits.map((produit) => (
-                            <div key={produit.id} className="produit">
-                                <div className="produit_info">
-                                    <figure className="produit_info-img">
-                                        <img src={produit.image} alt={produit.nom}/>
-                                    </figure>
-                                    <div className="produit_info-title">
-                                        <h3>{produit.nom}</h3> 
-                                    </div>
-                                    <div className="produit_info-categorie">
-                                        <p>{produit.categorie}</p>
-                                    </div>
-                                    <div className="produit_info-description">
-                                        <p>{produit.description}</p>
-                                    </div>
-                                    <div className="produit_info-prix">
-                                        <p>{produit.prix}€</p>
-                                    </div>     
-                                </div>
-                                <div className="produit_buttons">
-                                    <button onClick={() => handleEditProduct(produit.id)}>
-                                        Modifier
-                                    </button>
-                                    <button onClick={() => handleDeleteProduct(produit.id)}>
-                                        Supprimer
-                                    </button>
-                                    <button>
-                                        Voir
-                                    </button>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-          
+                {showForm && ( // Affiche seulement si showForm est true
+                    <form onSubmit={selectedProduit ? handleUpdateProduct : handleAddProduct}>
+                        <h2>{selectedProduit ? "Modifier un produit" : "Ajouter un produit"}</h2>
 
-            {/* <h2>
-                {selectedProduit ? "Modifier un produit" : "Ajouter un produit"}
-            </h2> */}
-            
+                        <div>
+                            <label>Nom du produit</label>
+                            <input type="text" value={nom} onChange={(e) => setNom(e.target.value)} required />
+                        </div>
+                        <div>
+                            <label>Description</label>
+                            <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
+                        </div>
+                        <div>
+                            <label>Prix</label>
+                            <input type="number" value={prix} onChange={(e) => setPrix(e.target.value)} required />
+                        </div>
+                        <div>
+                            <label>Catégorie</label>
+                            <input type="text" value={categorie} onChange={(e) => setCategorie(e.target.value)} required />
+                        </div>
+                        <div>
+                            <label>URL image</label>
+                            <input type="text" value={image} onChange={(e) => setImage(e.target.value)} required />
+                        </div>
+                        <div>
+                            <label>Détails</label>
+                            <textarea value={details} onChange={(e) => setDetails(e.target.value)} required />
+                        </div>
 
-            {/* <form onSubmit={selectedProduit ? handleUpdateProduct : handleAddProduct}>
-                <div>
-                    <label>Nom du produit</label>
-                    <input
-                        type="text"
-                        value={nom}
-                        onChange={(e) => setNom(e.target.value)}
-                        required
-                        className="w-full p-2 border rounded"
-                    />
-                </div>
-                <div>
-                    <label>Description</label>
-                    <textarea
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        required
-                        className="w-full p-2 border rounded"
-                    />
-                </div>
-                <div>
-                    <label>Prix</label>
-                    <input
-                        type="number"
-                        value={prix}
-                        onChange={(e) => setPrix(e.target.value)}
-                        required
-                        className="w-full p-2 border rounded"
-                    />
-                </div>
-                <div>
-                    <label>URL image</label>
-                    <input
-                        type="text"
-                        value={image}
-                        onChange={(e) => setImage(e.target.value)}
-                        required
-                        className="w-full p-2 border rounded"
-                    />
-                </div>
-                <div>
-                    <label>Détails</label>
-                    <textarea
-                        value={details}
-                        onChange={(e) => setDetails(e.target.value)}
-                        required
-                        className="w-full p-2 border rounded"
-                    />
-                </div>
-                <div>
-                    <button type="submit" className="bg-blue-500 text-white p-2 rounded">
-                        {selectedProduit ? "Mettre à jour le produit" : "Ajouter le produit"}
-                    </button>
-                </div>
-            </form> */}
+                        <div>
+                            <button type="submit">{selectedProduit ? "Mettre à jour le produit" : "Ajouter le produit"}</button>
+                            <button type="button" onClick={() => setShowForm(false)}>Annuler</button>
+                        </div>
+                    </form>
+                )}
 
 
-            
+            </div>
         </div>
     );
 };
