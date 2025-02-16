@@ -1,3 +1,5 @@
+@import "../styles/globals.scss";
+
 .panel{
     position : relative;
     display : flex;
@@ -15,8 +17,8 @@
         width : 15vw;
         height : 100vh;
         padding : 2vw;
-        background-color: #6B4927;
-        color : #F8EDE3;
+        background-color: $primary;
+        color : $secondary;
     }
 
     &_container{
@@ -27,12 +29,12 @@
         min-height : 100vh;
         margin-left : 15vw;
         padding : 10vh 2vw;
-        background-color: #F8EDE3;
+        background-color: $secondary;
 
         h1{
             font-size : 5vw;
             line-height : .8;
-            color : #6B4927;
+            color : $primary;
         }
 
         &-produits{
@@ -46,7 +48,7 @@
         display : flex;
         justify-content: space-between;
         padding-bottom : 1vw;
-        border-bottom : 1px solid #6B4927;
+        border-bottom : 1px solid $primary;
 
 
         &:last-of-type{

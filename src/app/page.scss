@@ -1,13 +1,15 @@
+@import "../styles/globals.scss";
+
 .home{
     width : 100%;
 
     &_subtitle{
-        background-color: #E6D2C6;
+        background-color: $quaternary;
         padding : 15vh 10vw;
 
         p{
             font-size : 2.5vw;
-            color : #6B4927;
+            color : $primary;
         }
     }
 
@@ -19,11 +21,11 @@
         gap : 2vh;
         justify-content: space-between;
         padding : 20vh 10vw 2vw 10vw;
-        background-color: #F8EDE3;
+        background-color: $secondary;
 
         h2{
             font-size : 2.5vw;
-            color : #6B4927;
+            color : $primary;
         }
         
         &-tags{
@@ -32,13 +34,13 @@
 
             .tag{
                 font-size : 1.5vw;
-                color : #6B4927;
-                border : 1px solid #6B4927;
+                color : $primary;
+                border : 1px solid $primary;
                 padding : 1vh 30px;
 
                 &.active{
-                    background-color: #6B4927;
-                    color : #F8EDE3;
+                    background-color: $primary;
+                    color : $secondary;
                 }
             }
         }
@@ -68,7 +70,7 @@
 
     &_produits{
         padding : 20vh 10vw;
-        background-color: #F8EDE3;
+        background-color: $secondary;
 
         &-container{
             display: grid;
@@ -88,7 +90,7 @@
                     gap : 15px;
 
                     h2{
-                        color : #6B4927;
+                        color : $primary;
                         font-weight: bold;
                     }
 
