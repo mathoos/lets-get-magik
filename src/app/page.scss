@@ -12,11 +12,13 @@
     }
 
     &_search{
+        position : sticky;
+        top : -10vh;
         display : flex;
         flex-direction: column;
         gap : 2vh;
         justify-content: space-between;
-        padding : 20vh 10vw 0 10vw;
+        padding : 20vh 10vw 2vw 10vw;
         background-color: #F8EDE3;
 
         h2{

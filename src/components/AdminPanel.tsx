@@ -94,17 +94,25 @@ const AdminPanel = () => {
 
     const handleUpdateProduct = async (e: React.FormEvent) => {
         e.preventDefault();
-
+    
         if (selectedProduit) {
+            const updatedProduit = {
+                nom,
+                description,
+                categorie,
+                prix,
+                image: image || selectedProduit.image, // Garde l'ancienne image si aucune nouvelle image n'a été ajoutée
+                details
+            };
+    
             const { error } = await supabase
                 .from("produits")
-                .update({ nom, description, categorie, prix, image, details })
+                .update(updatedProduit)
                 .eq("id", selectedProduit.id);
-
+    
             if (error) {
                 console.error(error);
-            } 
-            else {
+            } else {
                 alert("Produit mis à jour avec succès !");
                 setNom("");
                 setDescription("");
@@ -117,6 +125,7 @@ const AdminPanel = () => {
             }
         }
     };
+    
 
     const handleLogout = async () => {
         await supabase.auth.signOut();
@@ -247,7 +256,13 @@ const AdminPanel = () => {
                         </div>
                         <div>
                             <label>URL image</label>
-                            <input type="file" onChange={handleImageUpload} required />
+                            {selectedProduit && image && (
+                                <div>
+                                    <p>Image actuelle :</p>
+                                    <img src={image} alt="Image actuelle" style={{ maxWidth: "150px", display: "block", marginBottom: "10px" }} />
+                                </div>
+                            )}
+    <input type="file" onChange={handleImageUpload} required={!selectedProduit} />
                         </div>
                         <div>
                             <label>Détails</label>
