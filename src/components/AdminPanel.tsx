@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import supabase from "@/lib/supabase";
 
 import "./AdminPanel.scss";
+import "./AdminPanelForm.scss";
 
 
 type Produit = {
@@ -45,6 +46,7 @@ const AdminPanel = () => {
         fetchProduits();
     }, [produits]);
 
+
     const handleAddProduct = async (e: React.FormEvent) => {
         e.preventDefault();
     
@@ -54,7 +56,8 @@ const AdminPanel = () => {
     
         if (error) {
             console.error(error);
-        } else {
+        } 
+        else {
             alert("Produit ajouté avec succès !");
             setNom("");
             setDescription("");
@@ -163,9 +166,6 @@ const AdminPanel = () => {
         }
     };
     
-    
-    
-
 
 
     return (
@@ -223,23 +223,23 @@ const AdminPanel = () => {
                     </>
                 )}
 
-                {showForm && ( // Affiche seulement si showForm est true
-                    <form onSubmit={selectedProduit ? handleUpdateProduct : handleAddProduct}>
-                        <h2>{selectedProduit ? "Modifier un produit" : "Ajouter un produit"}</h2>
+                {showForm && ( 
+                    <form className="form" onSubmit={selectedProduit ? handleUpdateProduct : handleAddProduct}>
+                        <h1>{selectedProduit ? "Modifier un produit" : "Ajouter un produit"}</h1>
 
-                        <div>
+                        <fieldset>
                             <label>Nom du produit</label>
                             <input type="text" value={nom} onChange={(e) => setNom(e.target.value)} required />
-                        </div>
-                        <div>
+                        </fieldset>
+                        <fieldset>
                             <label>Description</label>
                             <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
-                        </div>
-                        <div>
+                        </fieldset>
+                        <fieldset>
                             <label>Prix</label>
                             <input type="number" value={prix} onChange={(e) => setPrix(e.target.value)} required />
-                        </div>
-                        <div>
+                        </fieldset>
+                        <fieldset>
                             <label>Catégorie</label>
                             <div>
                             <select
@@ -247,31 +247,30 @@ const AdminPanel = () => {
                             onChange={(e) => setCategorie(e.target.value)}
                             required
                         >
-                            <option value="" disabled>-- Sélectionnez une catégorie --</option>
+                            <option value="" disabled>Sélectionner une catégorie</option>
                             {["Soin", "Sérum", "Crème"].map((cat) => (
                                 <option key={cat} value={cat}>{cat}</option>
                             ))}
                             </select>
                         </div>
-                        </div>
-                        <div>
+                        </fieldset>
+                        <fieldset>
                             <label>URL image</label>
                             {selectedProduit && image && (
                                 <div>
-                                    <p>Image actuelle :</p>
                                     <img src={image} alt="Image actuelle" style={{ maxWidth: "150px", display: "block", marginBottom: "10px" }} />
                                 </div>
                             )}
-    <input type="file" onChange={handleImageUpload} required={!selectedProduit} />
-                        </div>
-                        <div>
+                            <input type="file" onChange={handleImageUpload} required={!selectedProduit} />
+                        </fieldset>
+                        <fieldset>
                             <label>Détails</label>
-                            <textarea value={details} onChange={(e) => setDetails(e.target.value)} required />
-                        </div>
+                            <textarea className="details" value={details} onChange={(e) => setDetails(e.target.value)} required />
+                        </fieldset>
 
-                        <div>
-                            <button type="submit">{selectedProduit ? "Mettre à jour le produit" : "Ajouter le produit"}</button>
-                            <button type="button" onClick={() => setShowForm(false)}>Annuler</button>
+                        <div className="form_buttons">
+                            <button className="bouton" type="submit">{selectedProduit ? "Mettre à jour le produit" : "Ajouter le produit"}</button>
+                            <button className="bouton" type="button" onClick={() => setShowForm(false)}>Annuler</button>
                         </div>
                     </form>
                 )}

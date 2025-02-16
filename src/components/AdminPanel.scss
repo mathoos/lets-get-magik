@@ -22,9 +22,6 @@
     }
 
     &_container{
-        display : flex;
-        flex-direction: column;
-        gap : 10vh;
         width: calc(100vw - 15vw);
         min-height : 100vh;
         margin-left : 15vw;
@@ -35,6 +32,7 @@
             font-size : 5vw;
             line-height : .8;
             color : $primary;
+            margin-bottom : 10vh;
         }
 
         &-produits{
@@ -57,11 +55,13 @@
 
         &_info{
             display : flex;
+            align-items: stretch;
             align-items: center;
+            
 
             &-img{
                 width : 5vw;
-                height : 5vw;
+                height : 5vw;               
 
                 img{
                     width : 100%;
@@ -73,18 +73,21 @@
             &-title, &-categorie, &-prix{
                 width : 10vw;
                 padding : 0 10px;
+
+                h3, p{
+                    text-align : center
+                }
+               
             }
 
             &-description{
                 width : 35vw;
-                padding : 0 10px;
+                padding : 0 10px; 
             }
 
             &-prix{
-
-                p{
-                    text-align : center
-                }
+                
+                
             } 
         }
 
@@ -99,10 +102,12 @@
         &_sort{
             padding-bottom : 0;
             border-bottom : none;
+            margin-bottom : 2.5vh;
 
             h3{
                 text-align : center;
                 font-weight : bold;
+                color : $primary;
             }
 
             .produit_info{
