@@ -27,11 +27,9 @@ const AdminPanel = () => {
     const [details, setDetails] = useState("");
     const [categorie, setCategorie] = useState<string>("");
     const [selectedProduit, setSelectedProduit] = useState<Produit | null>(null);
+    const [showForm, setShowForm] = useState(false);
     const router = useRouter();
     
-
-    const [showForm, setShowForm] = useState(false);
-
     // Récupérer les produits depuis la base de données
     useEffect(() => {
         const fetchProduits = async () => {
@@ -46,7 +44,7 @@ const AdminPanel = () => {
         fetchProduits();
     }, [produits]);
 
-
+    // Ajouter un produit
     const handleAddProduct = async (e: React.FormEvent) => {
         e.preventDefault();
     
@@ -69,7 +67,7 @@ const AdminPanel = () => {
         }
     };
     
-
+    // Supprimer un produit
     const handleDeleteProduct = async (id: string) => {
         const { error } = await supabase.from("produits").delete().match({ id });
 
@@ -81,6 +79,7 @@ const AdminPanel = () => {
         }
     };
 
+    // Récupère l'id du produit sélectionné et ouvre le form avec les champs pré-remplis
     const handleEditProduct = async (id: string) => {
         const produit = produits.find((produit) => produit.id === id);
         if (produit) {
@@ -95,6 +94,7 @@ const AdminPanel = () => {
         }
     };
 
+    //  Modifier un produit
     const handleUpdateProduct = async (e: React.FormEvent) => {
         e.preventDefault();
     
@@ -104,7 +104,7 @@ const AdminPanel = () => {
                 description,
                 categorie,
                 prix,
-                image: image || selectedProduit.image, // Garde l'ancienne image si aucune nouvelle image n'a été ajoutée
+                image: image || selectedProduit.image, 
                 details
             };
     
@@ -115,7 +115,8 @@ const AdminPanel = () => {
     
             if (error) {
                 console.error(error);
-            } else {
+            } 
+            else {
                 alert("Produit mis à jour avec succès !");
                 setNom("");
                 setDescription("");
@@ -130,21 +131,23 @@ const AdminPanel = () => {
     };
     
 
+    // Se déconnecter
     const handleLogout = async () => {
         await supabase.auth.signOut();
         router.push("/login"); 
     };
 
+
+    // Télécharger une image
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]; // Récupère le premier fichier choisi par l'utilisateur
         if (file) {
-            // Crée un nom unique pour le fichier en fonction de la date et du nom du fichier
+            
             const fileName = `${Date.now()}-${file.name}`;
             
             try {
-                // Télécharge l'image sur Supabase Storage
                 const { error: uploadError } = await supabase.storage
-                .from('produits-images') // 'produits-images' est le nom de ton bucket dans Supabase Storage
+                .from('produits-images') // 'produits-images' est le nom du bucket dans Supabase Storage
                 .upload(fileName, file);
             
             if (uploadError) {
@@ -152,15 +155,15 @@ const AdminPanel = () => {
                 return;
             }
     
-                // Récupère l'URL publique du fichier
-                const { data } = supabase.storage
-                .from('produits-images')
-                .getPublicUrl(fileName);
-                
-                // Mets à jour l'état avec l'URL publique
-                setImage(data.publicUrl); // Utilise data.publicUrl directement
+            const { data } = supabase.storage
+            .from('produits-images')
+            .getPublicUrl(fileName);
             
-            } catch (error) {
+            setImage(data.publicUrl); 
+            
+            } 
+
+            catch (error) {
                 console.error('Erreur lors du téléchargement de l\'image:', error);
             }
         }
@@ -242,20 +245,20 @@ const AdminPanel = () => {
                         <fieldset>
                             <label>Catégorie</label>
                             <div>
-                            <select
-                            value={categorie}
-                            onChange={(e) => setCategorie(e.target.value)}
-                            required
-                        >
-                            <option value="" disabled>Sélectionner une catégorie</option>
-                            {["Soin", "Sérum", "Crème"].map((cat) => (
-                                <option key={cat} value={cat}>{cat}</option>
-                            ))}
-                            </select>
-                        </div>
+                                <select
+                                    value={categorie}
+                                    onChange={(e) => setCategorie(e.target.value)}
+                                    required
+                                >
+                                <option value="" disabled>Sélectionner une catégorie</option>
+                                {["Soin", "Sérum", "Crème"].map((cat) => (
+                                    <option key={cat} value={cat}>{cat}</option>
+                                ))}
+                                </select>
+                            </div>
                         </fieldset>
                         <fieldset>
-                            <label>URL image</label>
+                            <label>Ajouter une image</label>
                             {selectedProduit && image && (
                                 <div>
                                     <img src={image} alt="Image actuelle" style={{ maxWidth: "150px", display: "block", marginBottom: "10px" }} />
@@ -270,12 +273,25 @@ const AdminPanel = () => {
 
                         <div className="form_buttons">
                             <button className="bouton" type="submit">{selectedProduit ? "Mettre à jour le produit" : "Ajouter le produit"}</button>
-                            <button className="bouton" type="button" onClick={() => setShowForm(false)}>Annuler</button>
+                            <button
+                                className="bouton"
+                                type="button"
+                                onClick={() => {
+                                    setShowForm(false);
+                                    setSelectedProduit(null); 
+                                    setNom("");
+                                    setDescription("");
+                                    setCategorie("");
+                                    setPrix("");
+                                    setImage("");
+                                    setDetails("");
+                                }}
+                                >
+                                Annuler
+                            </button>
                         </div>
                     </form>
                 )}
-
-
             </div>
         </div>
     );
