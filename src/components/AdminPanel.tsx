@@ -47,25 +47,25 @@ const AdminPanel = () => {
 
     const handleAddProduct = async (e: React.FormEvent) => {
         e.preventDefault();
-
+    
         const produitData = { nom, description, prix, image, categorie, details };
-
+    
         const { error } = await supabase.from("produits").insert([produitData]);
-
+    
         if (error) {
             console.error(error);
-        } 
-        else {
+        } else {
             alert("Produit ajouté avec succès !");
             setNom("");
             setDescription("");
             setCategorie("");
             setPrix("");
-            setImage("");
+            setImage("");  // Réinitialise l'image
             setDetails("");
             setShowForm(false);
         }
     };
+    
 
     const handleDeleteProduct = async (id: string) => {
         const { error } = await supabase.from("produits").delete().match({ id });
@@ -122,6 +122,40 @@ const AdminPanel = () => {
         await supabase.auth.signOut();
         router.push("/login"); 
     };
+
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]; // Récupère le premier fichier choisi par l'utilisateur
+        if (file) {
+            // Crée un nom unique pour le fichier en fonction de la date et du nom du fichier
+            const fileName = `${Date.now()}-${file.name}`;
+            
+            try {
+                // Télécharge l'image sur Supabase Storage
+                const { error: uploadError } = await supabase.storage
+                .from('produits-images') // 'produits-images' est le nom de ton bucket dans Supabase Storage
+                .upload(fileName, file);
+            
+            if (uploadError) {
+                console.error('Erreur lors du téléchargement de l\'image:', uploadError.message || uploadError);
+                return;
+            }
+    
+                // Récupère l'URL publique du fichier
+                const { data } = supabase.storage
+                .from('produits-images')
+                .getPublicUrl(fileName);
+                
+                // Mets à jour l'état avec l'URL publique
+                setImage(data.publicUrl); // Utilise data.publicUrl directement
+            
+            } catch (error) {
+                console.error('Erreur lors du téléchargement de l\'image:', error);
+            }
+        }
+    };
+    
+    
+    
 
 
 
@@ -213,7 +247,7 @@ const AdminPanel = () => {
                         </div>
                         <div>
                             <label>URL image</label>
-                            <input type="text" value={image} onChange={(e) => setImage(e.target.value)} required />
+                            <input type="file" onChange={handleImageUpload} required />
                         </div>
                         <div>
                             <label>Détails</label>
