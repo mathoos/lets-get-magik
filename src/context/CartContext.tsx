@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 type Produit = {
     id: string;
@@ -21,20 +21,33 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
     const [panier, setPanier] = useState<Produit[]>([]);
+    const [isMounted, setIsMounted] = useState(false); // Permet de savoir si le composant est monté
+
+    useEffect(() => {
+        setIsMounted(true);
+        const savedCart = localStorage.getItem("panier");
+        if (savedCart) {
+            setPanier(JSON.parse(savedCart));
+        }
+    }, []);
+
+    useEffect(() => {
+        if (isMounted) {
+            localStorage.setItem("panier", JSON.stringify(panier));
+        }
+    }, [panier, isMounted]);
 
     const ajouterAuPanier = (produit: Produit) => {
         setPanier((prevPanier) => {
-        // Si le produit est déjà dans le panier, augmenter la quantité
-        const produitExistant = prevPanier.find((p) => p.id === produit.id);
-        if (produitExistant) {
-            return prevPanier.map((p) =>
-            p.id === produit.id ? { ...p, quantite: p.quantite + 1 } : p
-            );
-        }
-        return [...prevPanier, { ...produit, quantite: 1 }];
+            const produitExistant = prevPanier.find((p) => p.id === produit.id);
+            if (produitExistant) {
+                return prevPanier.map((p) =>
+                    p.id === produit.id ? { ...p, quantite: p.quantite + 1 } : p
+                );
+            }
+            return [...prevPanier, { ...produit, quantite: 1 }];
         });
     };
-
 
     const retirerDuPanier = (id: string) => {
         setPanier((prevPanier) =>
@@ -48,11 +61,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         );
     };
 
-
     const viderPanier = () => {
         setPanier([]);
+        localStorage.removeItem("panier");
     };
-
 
     const calculerTotal = () => {
         return panier.reduce((total, produit) => total + produit.prix * produit.quantite, 0);

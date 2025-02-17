@@ -1,6 +1,6 @@
 "use client";
-import Link from "next/link";
 import Image from "next/image";
+import { loadStripe } from "@stripe/stripe-js";
 import { useCart } from "../context/CartContext";
 import trash from "../assets/trash.svg";
 import "./Panier.scss";
@@ -8,6 +8,7 @@ import "./Panier.scss";
 export default function Panier({ isOpen, closePanier }: { isOpen: boolean; closePanier: () => void }) {
 
     const { panier, ajouterAuPanier, retirerDuPanier, calculerTotal } = useCart();
+    const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string);
 
     const handleChangeQuantite = (produitId: string, newQuantite: number) => {
         if (newQuantite < 1) return; // Empêche d'aller en dessous de 1
@@ -18,11 +19,42 @@ export default function Panier({ isOpen, closePanier }: { isOpen: boolean; close
                 for (let i = 0; i < difference; i++) {
                     ajouterAuPanier(produit);
                 }
-            } else {
+            } 
+            else {
                 for (let i = 0; i < Math.abs(difference); i++) {
                     retirerDuPanier(produit.id);
                 }
             }
+        }
+    };
+
+    const handlePaiement = async () => {
+        if (panier.length === 0) return;
+
+        // Charger Stripe
+        const stripe = await stripePromise;
+
+        if (!stripe) {
+            console.error("Erreur de chargement de Stripe");
+        return;
+        }
+
+        // Appel à l'API backend pour créer la session de paiement
+        const response = await fetch("/api/checkout", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ panier }),
+        });
+
+        const data = await response.json();
+
+        // Vérifie si on a bien un sessionId et redirige vers Stripe
+        if (data.sessionId) {
+
+            stripe.redirectToCheckout({ sessionId: data.sessionId }); // Utilise sessionId ici, pas l'URL complète
+        } 
+        else {
+            console.error("Erreur de session Stripe :", data.error);
         }
     };
     
@@ -72,7 +104,12 @@ export default function Panier({ isOpen, closePanier }: { isOpen: boolean; close
 
                 
                         <div className="panier_container-total">
-                            <Link href="/panier" className="bouton">Voir mon panier</Link>
+                            <button
+                                onClick={handlePaiement}
+                                className="bouton"
+                            >
+                                Payer avec Stripe
+                            </button>
                             <p>Total : {calculerTotal()}€</p>   
                         </div>
                     </div>
