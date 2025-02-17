@@ -72,7 +72,6 @@ export default function Panier({ isOpen, closePanier }: { isOpen: boolean; close
                     <p>Votre panier est vide.</p>
                 ) : (
                     <div className="panier_container">
-
                         <div className="panier_container-produits">
                             {panier.map((produit) => (
                                 <div key={produit.id} className="produit">
