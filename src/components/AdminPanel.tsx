@@ -61,7 +61,7 @@ const AdminPanel = () => {
             setDescription("");
             setCategorie("");
             setPrix("");
-            setImage("");  // Réinitialise l'image
+            setImage("");
             setDetails("");
             setShowForm(false);
         }
@@ -140,14 +140,14 @@ const AdminPanel = () => {
 
     // Télécharger une image
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0]; // Récupère le premier fichier choisi par l'utilisateur
+        const file = e.target.files?.[0];
         if (file) {
             
             const fileName = `${Date.now()}-${file.name}`;
             
             try {
                 const { error: uploadError } = await supabase.storage
-                .from('produits-images') // 'produits-images' est le nom du bucket dans Supabase Storage
+                .from('produits-images')
                 .upload(fileName, file);
             
             if (uploadError) {
