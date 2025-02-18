@@ -98,6 +98,7 @@ CVC : 123
 
 
 ## Prérequis :
+[![NPM](https://img.shields.io/npm/v/wealth-health-modal-lib.svg)](https://www.npmjs.com/package/wealth-health-modal-lib) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 - **Node.js** (version >=16.0.0)
 - **npm** ou **yarn** (npm est livré avec Node.js)
 - **Stripe** : Créez un compte Stripe pour obtenir vos clés API.
