@@ -99,12 +99,19 @@ Créer un fichier .env.local à la racine du projet et définir les variables su
 
 
 ```jsx
+# BASE URL
+NEXT_PUBLIC_BASE_URL=  //http://localhost:3000
+
+
+# STRIPE 
 STRIPE_SECRET_KEY=
 NEXT_PUBLIC_STRIPE_PUBLIC_KEY=
-NEXT_PUBLIC_BASE_URL= //http://localhost:3000 ou autre
+
+
+# SUPABASE
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
-DATABASE_URL=
+DATABASE_URL=""
 SUPABASE_SERVICE_ROLE_KEY=
 ```
 
