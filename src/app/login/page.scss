@@ -1,0 +1,78 @@
+@import "../../styles/globals.scss";
+
+.login{
+    display : flex;
+    width : 100%;
+    height : 100vh;
+    background-color: $secondary;
+
+    &_img{
+        position : relative;
+        width : 35vw;
+        overflow : hidden;
+
+        img{
+            width : 100%;
+            height : 100%;
+            object-fit: cover;
+            object-position: top;
+        }
+    }
+
+    
+    &_form{
+        display : flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap : 5vh;
+        width : 65vw;
+        height : 100%;
+        padding : 20vh 10vw 10vh 10vw;
+
+        h1{
+            color : $primary;
+            font-size : 1.5vw;
+            font-weight : bold;
+        }
+
+        .form{
+            display : flex;
+            flex-direction: column;
+            gap : 2vh;
+            height : 100%;
+
+            fieldset{
+                display : flex;
+                flex-direction: column;
+
+                label{
+                    color : $primary;
+                    font-weight : bold;
+                }
+        
+                input{
+                    border : 1px solid $primary;
+                    padding : 5px 10px;
+        
+                    &:focus{
+                        outline : 1px solid $primary;
+                    }
+                }
+            }
+
+            .bouton{
+                background-color: $secondary;
+                color : $primary; 
+                border : 1px solid $primary; 
+                padding : 1vh 30px;
+                width : fit-content;
+                transition : .2s ease;
+    
+                &:hover{
+                    background-color: $primary; 
+                    color : $secondary;
+                }
+            }
+        }
+    }
+}
