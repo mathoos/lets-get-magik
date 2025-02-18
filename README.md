@@ -81,21 +81,31 @@ CVC : 123
 
 
 
-## Prérequis :
-[![NPM](https://img.shields.io/npm/v/wealth-health-modal-lib.svg)](https://www.npmjs.com/package/wealth-health-modal-lib) 
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+## Installation :
 - **Node.js** (version >=16.0.0)
-- **npm** ou **yarn** (npm est livré avec Node.js)
-- **Stripe** : Créez un compte Stripe pour obtenir vos clés API.
-- **Supabase** : Créez un compte Supabase et obtenez les informations de connexion pour votre base de données.
+- **npm** ou **yarn**
+- **Stripe** : Créer un compte Stripe pour obtenir les clés API.
+- **Supabase** : Créer un compte Supabase pour obtenir les informations de connexion à la base de données.
+
+```bash
+npm install
+```
+
+Créer un fichier .env.local à la racine du projet et définir les variables suivantes :  
+
+
+```jsx
+STRIPE_SECRET_KEY=
+NEXT_PUBLIC_STRIPE_PUBLIC_KEY=
+NEXT_PUBLIC_BASE_URL=http://localhost:3000 ou autre
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+DATABASE_URL=
+SUPABASE_SERVICE_ROLE_KEY=
+```
 
 
 
-## Pistes d'amélioration
-
-### - Possibilité d'ajouter des images ou fichiers dans les notes.
-### - Possibilité de marquer quand une tâche a été effectuée. 
-### - Créer une page avec les tâches archivées.
 
 
 
