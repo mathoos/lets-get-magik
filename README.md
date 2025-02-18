@@ -8,9 +8,9 @@ L'application ne possède pas encore de version mobile.
 
 ## Description
 
-Magik est un site e-commerce construit avec  **Next.js**, **Stripe**, et **Supabase**.####
+Magik est un site e-commerce construit avec  **Next.js**, **Stripe**, et **Supabase**.  ####
 Il permet à l'administrateur d'ajouter, de modifier ou de supprimer des produits de sa base de données et de 
-les afficher sur le site.####
+les afficher sur le site.  ####
 Le client peut ajouter des produits dans son panier et payer avec Stripe.
 
   
@@ -19,9 +19,9 @@ Le client peut ajouter des produits dans son panier et payer avec Stripe.
 
 
 ### 1. Se connecter
-Aller sur la page **/login** et rentrer ses identifiants et cliquer sur **Se connecter**.####
-**Email : test@test.fr**####
-**Mot de passe : test**####
+Aller sur la page **/login** et rentrer ses identifiants et cliquer sur **Se connecter**.  ####
+**Email : test@test.fr**  ####
+**Mot de passe : test**  ####
 On accède alors à la page **/admin** qui rencense tous les produits créés.
 
 ### 2. Créer un produit
