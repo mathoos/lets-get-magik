@@ -18,7 +18,7 @@
         gap : 2vw;
 
         &-link{
-            color : #FFFFFF;
+            color : $secondary;
         }
 
         &-icon{
@@ -40,7 +40,7 @@
                 width : 20px;
                 height : 20px;
                 border-radius : 100vmax;
-                background-color: #FFFFFF;
+                background-color: $secondary;
 
                 p{
                     color : $primary;
@@ -52,7 +52,7 @@
             position : relative;
             width : 20vw;
             border-radius : 100vmax;
-            background-color: #FFFFFF;
+            background-color: $secondary;
 
             input{
                 width : 20vw;
