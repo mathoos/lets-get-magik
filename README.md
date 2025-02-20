@@ -1,6 +1,6 @@
 # Site e-commerce
 
-https://task-manager-journal.onrender.com/
+https://lets-get-magik.onrender.com/
 
 L'application ne possède pas encore de version mobile.
 
