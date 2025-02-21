@@ -19,10 +19,10 @@ Le client peut ajouter des produits dans son panier et payer avec Stripe.
 
 
 ### 1. Se connecter
-Aller sur la page **/login** et rentrer ses identifiants et cliquer sur **Se connecter**.  
+Aller sur la page **/login**,rentrer ses identifiants et cliquer sur **Se connecter**.  
 **Email : test@test.fr**  
 **Mot de passe : test**  
-On accède alors à la page **/admin** qui rencense tous les produits créés.
+On accède alors à la page **/admin** qui recense tous les produits créés.
 
 ### 2. Créer un produit
 Cliquer sur le bouton **Ajouter un produit** qui se situe sur la barre latérale gauche.  
@@ -75,7 +75,7 @@ Cliquer sur **Payer avec Stripe**.
 L'utilisateur est redirigé sur la page checkout de Stripe.  
 Une fois le paiement finalisé, l'utilisateur est regirigé sur la page **/success** où figure un 
 récapitulatif des produits qu'ils vient d'acheter.  
-**Pour faire un paiement test**  
+**Pour faire un paiement test :**  
 Information de la carte : 4242 4242 4242 4242  
 CVC : 123
 
