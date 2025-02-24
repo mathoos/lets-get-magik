@@ -11,7 +11,7 @@
 
         &-blocLeft{  
             display : flex;
-            width : 60vw;
+            width : 55vw;
             padding : 30vh 0 0 10vw;
 
             &--img{
@@ -35,24 +35,21 @@
 
         &-blocRight{
             position : relative;
-            width : 40vw;
+            width : 45vw;
 
             &--img{
+                width : 100%;
+                height : 100vh;
+                object-fit: cover;
 
-                img{
-                    width : 100%;
-                    height : 100vh;
-                    object-fit: cover;
-
-                    &.sun{
-                        position : absolute;
-                        top : 15vw;
-                        right : 20vw;
-                        width : 3vw;
-                        height : 3vw;
-                    }
+                &.sun{
+                    position : absolute;
+                    top : 15vw;
+                    right : 20vw;
+                    width : 3vw;
+                    height : 3vw;
                 }
-            }  
+            }        
         } 
 
         &-title{
