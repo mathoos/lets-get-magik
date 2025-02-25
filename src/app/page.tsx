@@ -47,17 +47,17 @@ export default function Home() {
         <div className="w-full">
             <Header />
 
-            <div className="bg-[var(--quaternary)] py-[15vh] px-[10vw]">
-                <p className="text-[2.5vw] text-[var(--primary)]">Nos formules sont : courtes, concentrées, fabriquées en France</p>
+            <div className="bg-[var(--quaternary)] py-[5vh] md:py-[15vh] px-[30px] md:px-[10vw]">
+                <p className="text-[5vw] md:text-[2.5vw] text-[var(--primary)]">Nos formules sont : courtes, concentrées, fabriquées en France</p>
             </div>
 
-            <div className="sticky top-[-10vh] flex flex-col gap-[2vh] justify-between py-[20vh] px-[10vw] pb-[2vw] bg-[var(--secondary)]">
-                <h2 className="text-[2.5vw] text-[var(--primary)]">Nos produits</h2>
+            <div className="sticky top-[6vh] md:top-[-10vh] flex flex-col gap-[2vh] justify-between py-[5vh] md:py-[20vh] px-[30px] md:px-[10vw] pb-[auto] md:pb-[2vw] bg-[var(--secondary)]">
+                <h2 className="text-[7vw] md:text-[2.5vw] text-[var(--primary)]">Nos produits</h2>
 
-                <div className="flex gap-[2vw]">
+                <div className="flex gap-[5vw] md:gap-[2vw] flex-wrap">
                     <button 
                         onClick={() => setCategorieFiltre(null)}
-                        className={`text-[1.5vw] border border-[var(--primary)] px-[30px] py-[1vh] ${categorieFiltre === null ? "bg-[var(--primary)] text-[var(--secondary)]" : "text-[var(--primary)]"}`}
+                        className={`text-[3.5vw] md:text-[1.5vw] border border-[var(--primary)] px-[15px] md:px-[30px] py-[5px] md:py-[1vh] md:grow-0 grow last:grow-0 ${categorieFiltre === null ? "bg-[var(--primary)] text-[var(--secondary)]" : "text-[var(--primary)]"}`}
                     >
                         Tous
                     </button>
@@ -65,7 +65,7 @@ export default function Home() {
                         <button 
                             key={cat}
                             onClick={() => setCategorieFiltre(cat)}
-                            className={`text-[1.5vw] border border-[var(--primary)] px-[30px] py-[1vh] ${categorieFiltre === cat ? "bg-[var(--primary)] text-[var(--secondary)]" : "text-[var(--primary)]"}`}
+                            className={`text-[3.5vw] md:text-[1.5vw] border border-[var(--primary)] px-[15px] md:px-[30px] py-[5px] md:py-[1vh] md:grow-0 grow last:grow-0 ${categorieFiltre === cat ? "bg-[var(--primary)] text-[var(--secondary)]" : "text-[var(--primary)]"}`}
                         >
                             {cat}
                         </button>
@@ -73,20 +73,20 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="py-[20vh] px-[10vw] bg-[var(--secondary)]">
+            <div className="md:py-[20vh] py-[10vh] md:px-[10vw] px-[30px] bg-[var(--secondary)]">
                 {produitsFiltres.length === 0 ? (
                     <p>Aucun produit trouvé</p>
                 ) : (
-                    <div className="grid grid-cols-3 gap-[5vw]">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-[30px] md:gap-[5vw]">
                         {produitsFiltres.map((produit) => (
-                            <div key={produit.id} className="flex flex-col gap-[30px] bg-white p-[30px]">
-                                <Link href={`/produit/${produit.id}`} className="flex flex-col gap-[15px]">
-                                    <h2 className="text-[var(--primary)] font-bold">{produit.nom}</h2>
-                                    <img src={produit.image} alt={produit.nom} className="w-full h-80 object-cover"/>
+                            <div key={produit.id} className="flex flex-col justify-between gap-[15px] md:gap-[30px] bg-white p-[15px] md:p-[30px]">
+                                <Link href={`/produit/${produit.id}`} className="flex flex-col gap-[15px] md:h-auto h-full">
+                                    <h2 className="text-[3vw] md:text-[1vw] text-[var(--primary)] font-bold h-full">{produit.nom}</h2>
+                                    <img src={produit.image} alt={produit.nom} className="w-full h-[80px] md:h-[20vw] object-cover"/>
                                 </Link>
-                                <div className="flex justify-between items-center">
-                                    <p className="text-[var(--primary)]">{produit.prix} €</p>
-                                    <button className="text-[var(--primary)] border border-[var(--primary)] px-[30px] py-[1vh]" onClick={() => ajouterAuPanier({ ...produit, quantite: 1 })}>
+                                <div className="flex md:flex-row flex-col gap-[1vh] md:gap-[2vh] justify-between items-center">
+                                    <p className="text-[3vw] md:text-[1vw] text-[var(--primary)]">{produit.prix} €</p>
+                                    <button className="text-[var(--primary)] text-[2.5vw] md:text-[1vw] border border-[var(--primary)] px-[15px] md:px-[30px] py-[5px] md:py-[1vh]" onClick={() => ajouterAuPanier({ ...produit, quantite: 1 })}>
                                         Ajouter au panier
                                     </button>
                                 </div>
