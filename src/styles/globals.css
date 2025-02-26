@@ -5,25 +5,32 @@
 @tailwind utilities;
 
 
-
+@layer utilities {
+    .spinner::-webkit-inner-spin-button,
+    .spinner::-webkit-outer-spin-button {
+        opacity: 1; 
+        display: block; 
+        background-color: transparent;
+    }
+}
 
 
 :root {
-  --primary : #6B4927;
-  --secondary : #F8EDE3;
-  --tertiary : #F8DE88;
-  --quaternary : #E6D2C6;
+    --primary : #6B4927;
+    --secondary : #F8EDE3;
+    --tertiary : #F8DE88;
+    --quaternary : #E6D2C6;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: "Gilda Display", Helvetica, sans-serif;
+    color: var(--foreground);
+    background: var(--background);
+    font-family: "Gilda Display", Helvetica, sans-serif;
 }

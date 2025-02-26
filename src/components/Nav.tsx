@@ -21,7 +21,7 @@ export default function Nav() {
 
     return (
         <>
-            <nav className="fixed top-0 left-0 flex justify-between w-[100vw] h-[8vh] px-5 bg-[var(--primary)] z-10 items-center md:px-[5vw]">
+            <nav className="fixed top-0 left-0 flex justify-between w-[100vw] h-[8vh] px-[30px] bg-[var(--primary)] z-10 items-center md:px-[5vw]">
 
                 {/* Menu mobile */}
                 <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
