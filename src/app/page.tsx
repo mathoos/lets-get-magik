@@ -48,16 +48,16 @@ export default function Home() {
             <Header />
 
             <div className="bg-[var(--quaternary)] py-[5vh] md:py-[15vh] px-[30px] md:px-[10vw]">
-                <p className="text-[5vw] md:text-[2.5vw] text-[var(--primary)]">Nos formules sont : courtes, concentrées, fabriquées en France</p>
+                <p className="md:text-[2.5vw]">Nos formules sont : courtes, concentrées, fabriquées en France</p>
             </div>
 
             <div className="sticky top-[6vh] md:top-[-10vh] flex flex-col gap-[2vh] justify-between py-[5vh] md:py-[20vh] px-[30px] md:px-[10vw] pb-[auto] md:pb-[2vw] bg-[var(--secondary)]">
-                <h2 className="text-[7vw] md:text-[2.5vw] text-[var(--primary)]">Nos produits</h2>
+                <h2 className="text-[7vw] md:text-[2.5vw]">Nos produits</h2>
 
                 <div className="flex gap-[5vw] md:gap-[2vw] flex-wrap">
                     <button 
                         onClick={() => setCategorieFiltre(null)}
-                        className={`text-[3.5vw] md:text-[1.5vw] border border-[var(--primary)] px-[15px] md:px-[30px] py-[5px] md:py-[1vh] md:grow-0 grow last:grow-0 ${categorieFiltre === null ? "bg-[var(--primary)] text-[var(--secondary)]" : "text-[var(--primary)]"}`}
+                        className={`text-[3.5vw] md:text-[1.5vw] border border-[var(--primary)] px-[15px] py-[5px] md:px-[1.5vw] md:py-[1vh] md:grow-0 grow last:grow-0 ${categorieFiltre === null ? "bg-[var(--primary)] text-[var(--secondary)]" : "text-[var(--primary)]"}`}
                     >
                         Tous
                     </button>
@@ -65,7 +65,7 @@ export default function Home() {
                         <button 
                             key={cat}
                             onClick={() => setCategorieFiltre(cat)}
-                            className={`text-[3.5vw] md:text-[1.5vw] border border-[var(--primary)] px-[15px] md:px-[30px] py-[5px] md:py-[1vh] md:grow-0 grow last:grow-0 ${categorieFiltre === cat ? "bg-[var(--primary)] text-[var(--secondary)]" : "text-[var(--primary)]"}`}
+                            className={`text-[3.5vw] md:text-[1.5vw] border border-[var(--primary)] px-[15px] py-[5px] md:px-[1.5vw] md:py-[1vh] md:grow-0 grow last:grow-0 ${categorieFiltre === cat ? "bg-[var(--primary)] text-[var(--secondary)]" : "text-[var(--primary)]"}`}
                         >
                             {cat}
                         </button>
@@ -79,8 +79,8 @@ export default function Home() {
                 ) : (
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-[30px] md:gap-[5vw]">
                         {produitsFiltres.map((produit) => (
-                            <div key={produit.id} className="flex flex-col justify-between gap-[15px] md:gap-[30px] bg-white p-[15px] md:p-[30px]">
-                                <Link href={`/produit/${produit.id}`} className="flex flex-col gap-[15px] md:h-auto h-full">
+                            <div key={produit.id} className="flex flex-col justify-between gap-[15px] md:gap-[5vh] bg-white p-[15px] md:p-[2vw]">
+                                <Link href={`/produit/${produit.id}`} className="flex flex-col gap-[15px] md:gap-[5vh] md:h-auto h-full">
                                     <h2 className="text-[3vw] md:text-[1vw] text-[var(--primary)] font-bold h-full">{produit.nom}</h2>
                                     <img src={produit.image} alt={produit.nom} className="w-full h-[80px] md:h-[20vw] object-cover"/>
                                 </Link>
