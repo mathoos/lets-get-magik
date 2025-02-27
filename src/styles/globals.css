@@ -22,15 +22,17 @@
     --quaternary : #E6D2C6;
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --background: #0a0a0a;
-        --foreground: #ededed;
-    }
-}
 
 body {
-    color: var(--foreground);
-    background: var(--background);
+    color: var(--primary);
     font-family: "Gilda Display", Helvetica, sans-serif;
+    font-size : 5vw; 
+}
+
+
+@media screen and (min-width : 1024px) {
+
+    body{
+        font-size : 1vw;
+    }
 }
