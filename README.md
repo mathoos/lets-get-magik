@@ -2,8 +2,6 @@
 
 https://lets-get-magik.onrender.com/
 
-L'application ne possède pas encore de version mobile.
-
 
 
 ## Description
