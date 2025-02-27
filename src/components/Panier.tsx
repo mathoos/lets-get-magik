@@ -83,9 +83,9 @@ export default function Panier({ isOpen, closePanier }: { isOpen: boolean; close
                             <div key={produit.id} className="flex justify-between items-center items-stretch gap-[15px] md:gap-[1vw] border-b border-[var(--primary)] pb-[15px] md:pb-[1vw]">
                                 
                                 {/* Image et Nom */}
-                                <div className="flex items-center gap-[1vw] w-[60vw] md:w-[70vw]">
+                                <div className="flex items-center gap-[2vw] md:gap-[1vw] w-[60vw] md:w-[70vw]">
                                     <img src={produit.image} alt={produit.nom} className="w-[50px] h-[50px] md:w-[5vw] md:h-[5vw] object-cover" />
-                                    <h2 className="text-[var(--primary)]">{produit.nom}</h2>
+                                    <h2 className="text-[3.5vw] md:text-[1vw] text-[var(--primary)]">{produit.nom}</h2>
                                 </div>
                                 
                                 {/* Prix */}
@@ -102,7 +102,7 @@ export default function Panier({ isOpen, closePanier }: { isOpen: boolean; close
                                         min="1"
                                         onChange={(e) => handleChangeQuantite(produit.id, parseInt(e.target.value))}
                                     />
-                                    <button onClick={() => retirerDuPanier(produit.id)} className="w-[25px] h-[25px] md:w-[20px] md:h-[20px] flex items-center justify-center">
+                                    <button onClick={() => retirerDuPanier(produit.id)} className="w-[25px] h-[25px] md:w-[1.5vw] md:h-[1.5vw] flex items-center justify-center">
                                         <Image src={trash} alt="Poubelle" className="w-[100%] h-[100%] object-contain"/>
                                     </button>
                                 </div>
@@ -114,9 +114,9 @@ export default function Panier({ isOpen, closePanier }: { isOpen: boolean; close
                     <div className="flex justify-between items-center">
                         <button
                             onClick={handlePaiement}
-                            className="text-[var(--primary)] border border-[var(--primary)] px-[30px] py-[1vh] transition-colors hover:bg-[var(--primary)] hover:text-[var(--secondary)]"
+                            className="text-[var(--primary)] border border-[var(--primary)] px-[15px] py-[5px] md:px-[1.5vw] md:py-[1vh] transition-colors hover:bg-[var(--primary)] hover:text-[var(--secondary)]"
                         >
-                            Payer avec Stripe
+                            Payer
                         </button>
                         <p className="text-[var(--primary)] font-bold">Total : {calculerTotal()}€</p>   
                     </div>
