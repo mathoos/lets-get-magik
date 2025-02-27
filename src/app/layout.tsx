@@ -3,7 +3,6 @@ import ClientLayout from "../components/clientLayout";
 import { CartProvider } from "../context/CartContext";
 import { SearchProvider } from "../context/SearchContext";
 
-import "../styles/globals.scss";
 import "../styles/globals.css";
 
 export const metadata: Metadata = {
