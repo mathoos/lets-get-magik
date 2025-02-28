@@ -47,8 +47,8 @@ export default function Home() {
         <div className="w-full">
             <Header />
 
-            <div className="bg-[var(--quaternary)] py-[5vh] md:py-[15vh] px-[30px] md:px-[10vw]">
-                <p className="md:text-[2.5vw]">Nos formules sont : courtes, concentrées, fabriquées en France</p>
+            <div className="bg-[var(--quaternary)] py-[5vh] md:py-[15vh] px-[30px] md:px-[10vw] border-y border-[var(--primary)]">
+                <p className="md:text-[2.5vw]">Nos formules sont : courtes, concentrées, fabriquées en France.</p>
             </div>
 
             <div className="sticky top-[6vh] md:top-[-10vh] flex flex-col gap-[2vh] justify-between py-[5vh] md:py-[20vh] px-[30px] md:px-[10vw] pb-[auto] md:pb-[2vw] bg-[var(--secondary)]">
@@ -57,7 +57,7 @@ export default function Home() {
                 <div className="flex gap-[5vw] md:gap-[2vw] flex-wrap">
                     <button 
                         onClick={() => setCategorieFiltre(null)}
-                        className={`text-[3.5vw] md:text-[1.5vw] border border-[var(--primary)] px-[15px] py-[5px] md:px-[1.5vw] md:py-[1vh] md:grow-0 grow last:grow-0 ${categorieFiltre === null ? "bg-[var(--primary)] text-[var(--secondary)]" : "text-[var(--primary)]"}`}
+                        className={`text-[3.5vw] md:text-[1.2vw] border border-[var(--primary)] px-[15px] py-[5px] md:px-[2vw] md:py-[1vh] md:grow-0 grow last:grow-0 ${categorieFiltre === null ? "bg-[var(--primary)] text-[var(--secondary)]" : "text-[var(--primary)]"}`}
                     >
                         Tous
                     </button>
@@ -65,7 +65,7 @@ export default function Home() {
                         <button 
                             key={cat}
                             onClick={() => setCategorieFiltre(cat)}
-                            className={`text-[3.5vw] md:text-[1.5vw] border border-[var(--primary)] px-[15px] py-[5px] md:px-[1.5vw] md:py-[1vh] md:grow-0 grow last:grow-0 ${categorieFiltre === cat ? "bg-[var(--primary)] text-[var(--secondary)]" : "text-[var(--primary)]"}`}
+                            className={`text-[3.5vw] md:text-[1.2vw] border border-[var(--primary)] px-[15px] py-[5px] md:px-[2vw] md:py-[1vh] md:grow-0 grow last:grow-0 ${categorieFiltre === cat ? "bg-[var(--primary)] text-[var(--secondary)]" : "text-[var(--primary)]"}`}
                         >
                             {cat}
                         </button>
@@ -79,14 +79,16 @@ export default function Home() {
                 ) : (
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-[30px] md:gap-[5vw]">
                         {produitsFiltres.map((produit) => (
-                            <div key={produit.id} className="flex flex-col justify-between gap-[15px] md:gap-[5vh] bg-white p-[15px] md:p-[2vw]">
+                            <div key={produit.id} className="flex flex-col justify-between gap-[10px] md:gap-[2vh]">
                                 <Link href={`/produit/${produit.id}`} className="flex flex-col gap-[15px] md:gap-[5vh] md:h-auto h-full">
-                                    <h2 className="text-[3vw] md:text-[1vw] text-[var(--primary)] font-bold h-full">{produit.nom}</h2>
-                                    <img src={produit.image} alt={produit.nom} className="w-full h-[80px] md:h-[20vw] object-cover"/>
+                                    <img src={produit.image} alt={produit.nom} className="w-full h-[25vh] md:h-[60vh] object-cover"/>
                                 </Link>
-                                <div className="flex md:flex-row flex-col gap-[1vh] md:gap-[2vh] justify-between items-center">
-                                    <p className="text-[3vw] md:text-[1vw] text-[var(--primary)]">{produit.prix} €</p>
-                                    <button className="text-[var(--primary)] text-[2.5vw] md:text-[1vw] border border-[var(--primary)] px-[15px] md:px-[30px] py-[5px] md:py-[1vh]" onClick={() => ajouterAuPanier({ ...produit, quantite: 1 })}>
+                                <div className="flex flex-col gap-[5px] md:gap-[2vh] h-full">
+                                    <div className="flex justify-between gap-[1.5vw] h-full">
+                                        <h2 className="text-[3vw] md:text-[1vw] text-[var(--primary)] font-bold h-full">{produit.nom}</h2>
+                                        <p className="text-[3vw] md:text-[1vw] text-[var(--primary)]">{produit.prix}€</p>
+                                    </div>
+                                    <button className="text-[var(--primary)] text-[2.5vw] md:text-[1vw] border border-[var(--primary)] px-[15px] md:px-[2vw] py-[5px] md:py-[1vh]" onClick={() => ajouterAuPanier({ ...produit, quantite: 1 })}>
                                         Ajouter au panier
                                     </button>
                                 </div>
