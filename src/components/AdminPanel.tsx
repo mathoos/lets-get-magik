@@ -169,50 +169,64 @@ const AdminPanel = () => {
 
 
     return (
-        <div className="panel">
+        <div className="relative flex justify-end w-full">
 
-            <div className="panel_barreLaterale">
-                <Link href="/">
+            <div className="fixed top-0 left-0 flex flex-col justify-end items-start w-[15vw] h-[100vh] p-[2vw] bg-[var(--primary)]">
+                <Link href="/" className="text-[var(--secondary)]">
                     Home
                 </Link>
-                <button onClick={() => setShowForm(true)}>
+                <button 
+                    className="text-[var(--secondary)]"
+                    onClick={() => setShowForm(true)}>
                     Ajouter un produit
                 </button>
-                <button onClick={handleLogout}>
+                <button 
+                    className="text-[var(--secondary)]"
+                    onClick={handleLogout}>
                     Déconnexion
                 </button>
             </div>
 
-            <div className="panel_container">
+            <div className="w-[calc(100vw-15vw)] min-h-[100vh] ml-[15vw] py-[10vh] px-[2vw] bg-[var(--secondary)]">
 
                 {!showForm && (
                     <>
-                        <h1>Tous mes produits</h1>
+                        <h1 className="text-[5vw] leading-[0.8] mb-[10vh]">Tous mes produits</h1>
 
-                        <div className="produit produit_sort">
-                            <div className="produit_info">
-                                <div className="produit_info-img"><h3>Image</h3></div>
-                                <div className="produit_info-title"><h3>Titre</h3></div>
-                                <div className="produit_info-categorie"><h3>Catégorie</h3></div>
-                                <div className="produit_info-description"><h3>Description</h3></div>
-                                <div className="produit_info-prix"><h3>Prix</h3></div>
+                        <div className="flex justify-between mb-[2.5vh]">
+                            <div className="flex items-center">
+                                <div className="w-[5vw] h-auto"><h3 className="text-center">Image</h3></div>
+                                <div className="w-[10vw] px-[10px]"><h3 className="text-center">Titre</h3></div>
+                                <div className="w-[10vw] px-[10px]"><h3 className="text-center">Catégorie</h3></div>
+                                <div className="w-[35vw] px-[10px]"><h3 className="text-center">Description</h3></div>
+                                <div className="w-[10vw] px-[10px]"><h3 className="text-center">Prix</h3></div>
                             </div>
-                            <div className="produit_buttons"><h3>Vide</h3></div>
+                            <div className="flex flex-col justify-between px-[10px] w-[10vw]">
+                                <h3 className="text-center">Vide</h3>
+                            </div>
                         </div>
 
-                        <div className="panel_container-produits">
+                        <div className="flex flex-col gap-[1vw]">
                             {produits.map((produit) => (
-                                <div key={produit.id} className="produit">
-                                    <div className="produit_info">
-                                        <figure className="produit_info-img">
-                                            <img src={produit.image} alt={produit.nom} />
+                                <div key={produit.id} className="flex justify-between pb-[1vw] border-b border-b-[var(--primary)] last-of-type:border-b-[0]">
+                                    <div className="flex items-center">
+                                        <figure className="w-[5vw] h-[5vw]">
+                                            <img src={produit.image} alt={produit.nom} className="w-full h-full object-cover "/>
                                         </figure>
-                                        <div className="produit_info-title"><h3>{produit.nom}</h3></div>
-                                        <div className="produit_info-categorie"><p>{produit.categorie}</p></div>
-                                        <div className="produit_info-description"><p>{produit.description}</p></div>
-                                        <div className="produit_info-prix"><p>{produit.prix}€</p></div>
+                                        <div className="w-[10vw] px-[10px]">
+                                            <h3 className="text-center">{produit.nom}</h3>
                                         </div>
-                                    <div className="produit_buttons">
+                                        <div className="w-[10vw] px-[10px]">
+                                            <p className="text-center">{produit.categorie}</p>
+                                        </div>
+                                        <div className="w-[35vw] px-[10px]">
+                                            <p>{produit.description}</p>
+                                        </div>
+                                        <div className="w-[10vw] px-[10px]">
+                                            <p className="text-center">{produit.prix}€</p>
+                                        </div>
+                                        </div>
+                                    <div className="flex flex-col justify-between px-[10px] w-[10vw]">
                                         <button onClick={() => handleEditProduct(produit.id)}>Modifier</button>
                                         <button onClick={() => handleDeleteProduct(produit.id)}>Supprimer</button>
                                         <button>Voir</button>
