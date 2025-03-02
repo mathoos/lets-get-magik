@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import headerImage from "../../assets/headerImg7.jpg";
 import { useCart } from "../../context/CartContext"; 
-import "./page.scss";
 
 
 interface Produit {
