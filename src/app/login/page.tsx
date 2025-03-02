@@ -5,8 +5,6 @@ import supabase from "@/lib/supabase";
 import Image from "next/image";
 import headerImage from "../../assets/headerImg11.jpg";
 
-import "./page.scss";
-
 const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -28,27 +26,29 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="login">
+        <div className="flex w-full h-[100vh] bg-[var(--secondary)]">
 
-            <figure className="login_img">
-                <Image src={headerImage} alt="Produit sur fond d'eau" />
+            <figure className="relative w-[35vw] overflow-hidden">
+                <Image src={headerImage} alt="Produit sur fond d'eau" className="w-full h-full object-cover object-top"/>
             </figure>
 
-            <div className="login_form">
-                <h1>Connexion</h1>   
-                <form onSubmit={handleLogin} className="form">
-                    <fieldset>
-                        <label>Email</label>
+            <div className="flex flex-col justify-between gat-[5vh] w-[65vw] h-full px-[10vw] pt-[20vh] pb-[10vh]">
+                <h1 className="text-[1.5vw] font-bold mb-[5vh]">Connexion</h1>   
+                <form onSubmit={handleLogin} className="flex flex-col gap-[2vh] h-full">
+                    <fieldset className="flex flex-col">
+                        <label className="font-bold">Email</label>
                         <input
+                            className="border border border-[var(--primary)] py-[5px] px-[10px]"
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </fieldset>
-                    <fieldset>
-                        <label>Mot de passe</label>
+                    <fieldset className="flex flex-col">
+                        <label className="font-bold">Mot de passe</label>
                         <input
+                            className="border border border-[var(--primary)] py-[5px] px-[10px]"
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -58,7 +58,7 @@ const LoginPage = () => {
                     {error && 
                         <p className="text-red-500">{error}</p>
                     }
-                    <button type="submit" className="bouton">
+                    <button type="submit" className="text-[var(--primary)] text-[2.5vw] md:text-[1vw] w-fit border border-[var(--primary)] px-[15px] md:px-[2vw] py-[5px] md:py-[1vh]">
                         Se connecter
                     </button>
                 </form>

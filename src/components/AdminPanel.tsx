@@ -4,9 +4,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import supabase from "@/lib/supabase";
 
-import "./AdminPanel.scss";
-import "./AdminPanelForm.scss";
-
 
 type Produit = {
     id: string;
