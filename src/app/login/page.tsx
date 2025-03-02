@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import supabase from "@/lib/supabase";
 import Image from "next/image";
-import headerImage from "../../assets/headerImg11.jpg";
+import headerImage from "../../assets/headerImg8.jpg";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
