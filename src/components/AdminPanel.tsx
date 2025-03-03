@@ -195,11 +195,20 @@ const AdminPanel = () => {
 
                         <div className="flex justify-between mb-[2.5vh]">
                             <div className="flex items-center">
-                                <div className="w-[5vw] h-auto"><h3 className="text-center">Image</h3></div>
-                                <div className="w-[10vw] px-[10px]"><h3 className="text-center">Titre</h3></div>
-                                <div className="w-[10vw] px-[10px]"><h3 className="text-center">Catégorie</h3></div>
-                                <div className="w-[35vw] px-[10px]"><h3 className="text-center">Description</h3></div>
-                                <div className="w-[10vw] px-[10px]"><h3 className="text-center">Prix</h3></div>
+                                <div className="w-[5vw] h-auto">
+                                    <h3 className="text-center font-bold">Image</h3>
+                                </div>
+                                <div className="w-[10vw] px-[10px]">
+                                <h3 className="text-center font-bold">Titre</h3>
+                            </div>
+                                <div className="w-[10vw] px-[10px]">
+                                <h3 className="text-center font-bold">Catégorie</h3>
+                            </div>
+                                <div className="w-[35vw] px-[10px]">
+                                <h3 className="text-center font-bold">Description</h3>
+                            </div>
+                                <div className="w-[10vw] px-[10px]">
+                                <h3 className="text-center font-bold">Prix</h3></div>
                             </div>
                             <div className="flex flex-col justify-between px-[10px] w-[10vw]">
                                 <h3 className="text-center">Vide</h3>
@@ -239,24 +248,25 @@ const AdminPanel = () => {
 
                 {showForm && ( 
                     <form className="flex flex-col gap-[2vh]" onSubmit={selectedProduit ? handleUpdateProduct : handleAddProduct}>
-                        <h1>{selectedProduit ? "Modifier un produit" : "Ajouter un produit"}</h1>
+                        <h1 className="text-[1.5vw] font-bold mb-[5vh]">{selectedProduit ? "Modifier un produit" : "Ajouter un produit"}</h1>
 
-                        <fieldset>
-                            <label>Nom du produit</label>
-                            <input type="text" value={nom} onChange={(e) => setNom(e.target.value)} required />
+                        <fieldset className="flex flex-col">
+                            <label className="font-bold text-[var(--primary)]">Nom du produit</label>
+                            <input className="border border-[var(--primary)] py-[5px] px-[10px]" type="text" value={nom} onChange={(e) => setNom(e.target.value)} required />
                         </fieldset>
-                        <fieldset>
-                            <label>Description</label>
-                            <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
+                        <fieldset className="flex flex-col">
+                            <label className="font-bold text-[var(--primary)]">Description</label>
+                            <textarea className="border border-[var(--primary)] py-[5px] px-[10px]" value={description} onChange={(e) => setDescription(e.target.value)} required />
                         </fieldset>
-                        <fieldset>
-                            <label>Prix</label>
-                            <input type="number" value={prix} onChange={(e) => setPrix(e.target.value)} required />
+                        <fieldset className="flex flex-col">
+                            <label className="font-bold text-[var(--primary)]">Prix</label>
+                            <input className="border border-[var(--primary)] py-[5px] px-[10px]" type="number" value={prix} onChange={(e) => setPrix(e.target.value)} required />
                         </fieldset>
-                        <fieldset>
-                            <label>Catégorie</label>
+                        <fieldset className="flex flex-col">
+                            <label className="font-bold text-[var(--primary)]">Catégorie</label>
                             <div>
                                 <select
+                                    className="border border-[var(--primary)] py-[5px] px-[10px]"
                                     value={categorie}
                                     onChange={(e) => setCategorie(e.target.value)}
                                     required
@@ -268,8 +278,8 @@ const AdminPanel = () => {
                                 </select>
                             </div>
                         </fieldset>
-                        <fieldset>
-                            <label>Ajouter une image</label>
+                        <fieldset className="flex flex-col">
+                            <label className="font-bold text-[var(--primary)]">Ajouter une image</label>
                             {selectedProduit && image && (
                                 <div>
                                     <img src={image} alt="Image actuelle" style={{ maxWidth: "150px", display: "block", marginBottom: "10px" }} />
@@ -277,15 +287,15 @@ const AdminPanel = () => {
                             )}
                             <input type="file" onChange={handleImageUpload} required={!selectedProduit} />
                         </fieldset>
-                        <fieldset>
-                            <label>Détails</label>
-                            <textarea className="details" value={details} onChange={(e) => setDetails(e.target.value)} required />
+                        <fieldset className="flex flex-col">
+                            <label className="font-bold text-[var(--primary)]">Détails</label>
+                            <textarea className="border border-[var(--primary)] py-[5px] px-[10px] min-h-[30vh]" value={details} onChange={(e) => setDetails(e.target.value)} required />
                         </fieldset>
 
-                        <div className="form_buttons">
-                            <button className="bouton" type="submit">{selectedProduit ? "Mettre à jour le produit" : "Ajouter le produit"}</button>
+                        <div className="flex gap-[2vw]">
+                            <button className="bg-[var(--primary)] text-[var(--secondary)] px-[15px] py-[5px] md:px-[2vw] md:py-[1vh]" type="submit">{selectedProduit ? "Mettre à jour le produit" : "Ajouter le produit"}</button>
                             <button
-                                className="bouton"
+                                className="border border-[var(--primary)] px-[15px] py-[5px] md:px-[2vw] md:py-[1vh]"
                                 type="button"
                                 onClick={() => {
                                     setShowForm(false);
