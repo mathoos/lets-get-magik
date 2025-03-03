@@ -238,7 +238,7 @@ const AdminPanel = () => {
                 )}
 
                 {showForm && ( 
-                    <form className="form" onSubmit={selectedProduit ? handleUpdateProduct : handleAddProduct}>
+                    <form className="flex flex-col gap-[2vh]" onSubmit={selectedProduit ? handleUpdateProduct : handleAddProduct}>
                         <h1>{selectedProduit ? "Modifier un produit" : "Ajouter un produit"}</h1>
 
                         <fieldset>
