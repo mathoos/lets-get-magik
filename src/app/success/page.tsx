@@ -54,12 +54,12 @@ export default function SuccessPage() {
                     <div className="flex flex-col gap-[1vw] w-full h-full">
                         {commande.length > 0 ? (
                             commande.map((produit) => (
-                                <div key={produit.id} className="flex justify-between items-center pb-[1vw] border-b border-[var(--primary)]">
+                                <div key={produit.id} className="flex justify-between items-center pb-[0.5vw] border-b border-[var(--primary)]">
                                     <img 
-                                        className="w-[200px] h-[200px] object-cover"
+                                        className="w-[2.5vw] h-[2.5vw] object-cover"
                                         src={produit.image} 
                                         alt={produit.nom} />
-                                    <h3 className="w-[60%] pl-[1vw] text-left">{produit.nom}</h3>
+                                    <h3 className="w-[60%] pl-[0.5vw] text-left">{produit.nom}</h3>
                                     <p className="w-[20%] text-center">{produit.quantite}</p>
                                     <p className="w-[20%] text-right">{produit.prix}€</p>
                                 </div>
@@ -68,7 +68,7 @@ export default function SuccessPage() {
                             <p>Aucune commande trouvée.</p>
                         )}
                     </div>
-                    <p className="self-end mt-auto">Total : {commande.reduce((total, produit) => total + produit.prix * produit.quantite, 0)}€</p>
+                    <p className="self-end mt-auto font-bold">Total : {commande.reduce((total, produit) => total + produit.prix * produit.quantite, 0)}€</p>
 
                 </div>
             </div>

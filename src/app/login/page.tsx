@@ -58,7 +58,7 @@ const LoginPage = () => {
                     {error && 
                         <p className="text-red-500">{error}</p>
                     }
-                    <button type="submit" className="text-[var(--primary)] text-[2.5vw] md:text-[1vw] w-fit border border-[var(--primary)] px-[15px] md:px-[2vw] py-[5px] md:py-[1vh]">
+                    <button type="submit" className="text-[var(--primary)] text-[2.5vw] md:text-[1vw] w-fit border border-[var(--primary)] px-[15px] md:px-[2vw] py-[5px] md:py-[1vh] transition-colors hover:bg-[var(--primary)] hover:text-[var(--secondary)]">
                         Se connecter
                     </button>
                 </form>

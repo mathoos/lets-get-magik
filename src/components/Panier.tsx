@@ -80,7 +80,7 @@ export default function Panier({ isOpen, closePanier }: { isOpen: boolean; close
                     {/* Liste des produits */}
                     <div className="flex flex-col gap-[15px] md:gap-[1vw] overflow-y-auto">
                         {panier.map((produit) => (
-                            <div key={produit.id} className="flex justify-between items-center items-stretch gap-[15px] md:gap-[1vw] border-b border-[var(--primary)] pb-[15px] md:pb-[1vw]">
+                            <div key={produit.id} className="mr-[.5vw] flex justify-between items-center items-stretch gap-[15px] md:gap-[1vw] border-b border-[var(--primary)] pb-[15px] md:pb-[1vw]">
                                 
                                 {/* Image et Nom */}
                                 <div className="flex items-center gap-[2vw] md:gap-[1vw] w-[60vw] md:w-[70vw]">

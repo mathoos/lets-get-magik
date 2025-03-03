@@ -32,7 +32,7 @@ body {
 }
 
 body::-webkit-scrollbar {
-    width: 30px;
+    width: .5vw;
 }
 
 body::-webkit-scrollbar-track {
@@ -53,7 +53,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 *::-webkit-scrollbar {
-    width: 7px;
+    width: .3vw;
 }
 
 *::-webkit-scrollbar-track {

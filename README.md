@@ -2,7 +2,7 @@
 
 https://lets-get-magik.onrender.com/
 
-
+La version mobile n'est pas entièrement optimisée.
 
 ## Description
 

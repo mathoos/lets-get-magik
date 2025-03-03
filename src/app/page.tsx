@@ -57,7 +57,7 @@ export default function Home() {
                 <div className="flex gap-[5vw] md:gap-[2vw] flex-wrap">
                     <button 
                         onClick={() => setCategorieFiltre(null)}
-                        className={`text-[3.5vw] md:text-[1.2vw] border border-[var(--primary)] px-[15px] py-[5px] md:px-[2vw] md:py-[1vh] md:grow-0 grow last:grow-0 ${categorieFiltre === null ? "bg-[var(--primary)] text-[var(--secondary)]" : "text-[var(--primary)]"}`}
+                        className={`text-[3.5vw] md:text-[1.2vw] border border-[var(--primary)] px-[15px] py-[5px] md:px-[2vw] md:py-[1vh] md:grow-0 grow last:grow-0 transition-colors hover:bg-[var(--primary)] hover:text-[var(--secondary)] ${categorieFiltre === null ? "bg-[var(--primary)] text-[var(--secondary)]" : "text-[var(--primary)]"}`}
                     >
                         Tous
                     </button>
@@ -65,7 +65,7 @@ export default function Home() {
                         <button 
                             key={cat}
                             onClick={() => setCategorieFiltre(cat)}
-                            className={`text-[3.5vw] md:text-[1.2vw] border border-[var(--primary)] px-[15px] py-[5px] md:px-[2vw] md:py-[1vh] md:grow-0 grow last:grow-0 ${categorieFiltre === cat ? "bg-[var(--primary)] text-[var(--secondary)]" : "text-[var(--primary)]"}`}
+                            className={`text-[3.5vw] md:text-[1.2vw] border border-[var(--primary)] px-[15px] py-[5px] md:px-[2vw] md:py-[1vh] md:grow-0 grow last:grow-0 transition-colors hover:bg-[var(--primary)] hover:text-[var(--secondary)] ${categorieFiltre === cat ? "bg-[var(--primary)] text-[var(--secondary)]" : "text-[var(--primary)]"}`}
                         >
                             {cat}
                         </button>
@@ -88,7 +88,7 @@ export default function Home() {
                                         <h2 className="text-[3vw] md:text-[1vw] text-[var(--primary)] font-bold h-full">{produit.nom}</h2>
                                         <p className="text-[3vw] md:text-[1vw] text-[var(--primary)]">{produit.prix}€</p>
                                     </div>
-                                    <button className="text-[var(--primary)] text-[2.5vw] md:text-[1vw] border border-[var(--primary)] px-[15px] md:px-[2vw] py-[5px] md:py-[1vh]" onClick={() => ajouterAuPanier({ ...produit, quantite: 1 })}>
+                                    <button className="text-[var(--primary)] text-[2.5vw] md:text-[1vw] border border-[var(--primary)] px-[15px] md:px-[2vw] py-[5px] md:py-[1vh] transition-colors hover:bg-[var(--primary)] hover:text-[var(--secondary)]" onClick={() => ajouterAuPanier({ ...produit, quantite: 1 })}>
                                         Ajouter au panier
                                     </button>
                                 </div>
