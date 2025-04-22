@@ -31,8 +31,8 @@ export default function Nav() {
                 {/* Liens de navigation (cachés sur mobile) */}
                 <div className={`absolute top-[8vh] left-0 w-full flex flex-col items-center gap-4 p-4 transition-all duration-300 md:static md:flex md:flex-row md:gap-[2vw] md:p-0 ${menuOpen ? "block" : "hidden"}`}>
                     <Link href="/" className="">Home</Link>
-                    <Link href="/diagnostic" className="">Diagnostic</Link>
-                    <Link href="/a-propos" className="">A propos</Link>
+                    <Link href="/" className="">Diagnostic</Link>
+                    <Link href="/" className="">A propos</Link>
                 </div>
 
                 {/* Icônes à droite */}
