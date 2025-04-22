@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import supabase from "@/lib/supabase";
@@ -220,7 +221,13 @@ const AdminPanel = () => {
                                 <div key={produit.id} className="flex justify-between pb-[1vw] border-b border-b-[var(--primary)] last-of-type:border-b-[0]">
                                     <div className="flex items-center">
                                         <figure className="w-[5vw] h-[5vw]">
-                                            <img src={produit.image} alt={produit.nom} className="w-full h-full object-cover "/>
+                                            <Image
+                                                src={produit.image} 
+                                                width={300}
+                                                height={300}
+                                                alt={produit.nom} 
+                                                className="w-full h-full object-cover "
+                                            />
                                         </figure>
                                         <div className="w-[10vw] px-[10px]">
                                             <h3 className="text-center">{produit.nom}</h3>
@@ -282,7 +289,13 @@ const AdminPanel = () => {
                             <label className="font-bold text-[var(--primary)]">Ajouter une image</label>
                             {selectedProduit && image && (
                                 <div>
-                                    <img src={image} alt="Image actuelle" style={{ maxWidth: "150px", display: "block", marginBottom: "10px" }} />
+                                    <Image 
+                                        src={image} 
+                                        alt="Image actuelle" 
+                                        width={300}
+                                        height={300}
+                                        style={{ maxWidth: "150px", display: "block", marginBottom: "10px" }} 
+                                    />
                                 </div>
                             )}
                             <input type="file" onChange={handleImageUpload} required={!selectedProduit} />

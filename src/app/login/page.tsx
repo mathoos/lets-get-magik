@@ -29,7 +29,12 @@ const LoginPage = () => {
         <div className="flex w-full h-[100vh] bg-[var(--secondary)]">
 
             <figure className="relative w-[35vw] overflow-hidden">
-                <Image src={headerImage} alt="Produit sur fond d'eau" className="w-full h-full object-cover object-top"/>
+                <Image 
+                    src={headerImage} 
+                    alt="Produit sur fond d'eau" 
+                    width={300}
+                    height={300}
+                    className="w-full h-full object-cover object-top"/>
             </figure>
 
             <div className="flex flex-col justify-between gat-[5vh] w-[65vw] h-full px-[10vw] pt-[20vh] pb-[10vh]">

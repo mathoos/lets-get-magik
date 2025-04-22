@@ -25,7 +25,11 @@ export default function Nav() {
 
                 {/* Menu mobile */}
                 <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
-                    <Image src={menuIcon} alt="Menu" className="w-[30px] h-[30px]" />
+                    <Image 
+                        src={menuIcon} 
+                        width={300}
+                        height={300}
+                        alt="Menu" className="w-[30px] h-[30px]" />
                 </button>
 
                 {/* Liens de navigation (cachés sur mobile) */}
@@ -47,16 +51,31 @@ export default function Nav() {
                             onChange={(e) => setRecherche(e.target.value)} 
                             className="text-[3vw] md:text-[1vw] w-full h-[5.5vw] md:h-[2vw] px-[10px] md:px-[1vw] py-[5px] outline-none border border-[var(--primary)] bg-transparent rounded-full"
                         />
-                        <Image src={search} alt="Barre de recherche" className="absolute right-[10px] md:right-[30px] top-1/2 transform -translate-y-1/2 w-[5vw] h-[5vw] md:w-[1.5vw] md:h-[1.5vw] object-contain" />
+                        <Image 
+                            src={search} 
+                            alt="Barre de recherche" 
+                            width={300}
+                            height={300}
+                            className="absolute right-[10px] md:right-[30px] top-1/2 transform -translate-y-1/2 w-[5vw] h-[5vw] md:w-[1.5vw] md:h-[1.5vw] object-contain" />
                     </div>
 
                     {/* Icônes Favoris et Panier */}
                     <Link href="/">
-                        <Image src={heart} alt="Favoris" className="w-[5vw] h-[5vw] md:w-[1.5vw] md:h-[1.5vw]" />
+                        <Image 
+                            src={heart} 
+                            alt="Favoris" 
+                            width={300}
+                            height={300}
+                            className="w-[5vw] h-[5vw] md:w-[1.5vw] md:h-[1.5vw]" />
                     </Link>
 
                     <button className="relative flex" onClick={() => setPanierOpen(!panierOpen)}>
-                        <Image src={cart} alt="Panier" className="w-[5vw] h-[5vw] md:w-[1.5vw] md:h-[1.5vw]" />
+                        <Image 
+                            src={cart} 
+                            alt="Panier" 
+                            width={300}
+                            height={300}
+                            className="w-[5vw] h-[5vw] md:w-[1.5vw] md:h-[1.5vw]" />
                         <div className="absolute right-[-2.7vw] bottom-[-1.7vw] md:right-[-.8vw] md:bottom-[-.4vw] flex justify-center items-center w-[3.5vw] h-[3.5vw] md:w-[1vw] md:h-[1vw] bg-white rounded-full">
                             <p className="text-[2.5vw] md:text-[.8vw]">{panier.length}</p>
                         </div>

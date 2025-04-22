@@ -84,7 +84,13 @@ export default function Panier({ isOpen, closePanier }: { isOpen: boolean; close
                                 
                                 {/* Image et Nom */}
                                 <div className="flex items-center gap-[2vw] md:gap-[1vw] w-[60vw] md:w-[70vw]">
-                                    <img src={produit.image} alt={produit.nom} className="w-[50px] h-[50px] md:w-[5vw] md:h-[5vw] object-cover" />
+                                    <Image 
+                                        src={produit.image} 
+                                        alt={produit.nom} 
+                                        width={300}
+                                        height={300}
+                                        className="w-[50px] h-[50px] md:w-[5vw] md:h-[5vw] object-cover" 
+                                    />
                                     <h2 className="text-[3.5vw] md:text-[1vw] text-[var(--primary)]">{produit.nom}</h2>
                                 </div>
                                 
@@ -103,7 +109,12 @@ export default function Panier({ isOpen, closePanier }: { isOpen: boolean; close
                                         onChange={(e) => handleChangeQuantite(produit.id, parseInt(e.target.value))}
                                     />
                                     <button onClick={() => retirerDuPanier(produit.id)} className="w-[25px] h-[25px] md:w-[1.5vw] md:h-[1.5vw] flex items-center justify-center">
-                                        <Image src={trash} alt="Poubelle" className="w-[100%] h-[100%] object-contain"/>
+                                        <Image 
+                                            src={trash} 
+                                            alt="Poubelle" 
+                                            width={300}
+                                            height={300}
+                                            className="w-[100%] h-[100%] object-contain"/>
                                     </button>
                                 </div>
                             </div>

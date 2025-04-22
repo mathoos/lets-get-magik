@@ -34,7 +34,11 @@ export default function SuccessPage() {
     return (
         <div className="flex w-full h-[100vh] bg-[var(--secondary)]">
             <figure className="relative w-[35vw] overflow-hidden">
-                <Image className="w-full h-full object-cover object-top" src={headerImage} alt="Produit sur fond d'eau" />
+                <Image 
+                    className="w-full h-full object-cover object-top" 
+                    width={300}
+                    height={300}
+                    src={headerImage} alt="Produit sur fond d'eau" />
                 <Link href="/" className="absolute right-[2vw] bottom-[2vw] bg-[var(--secondary)] px-[15px] py-[5px] md:px-[2vw] md:py-[1vh]">Retourner à la boutique</Link>
             </figure>
 
@@ -55,9 +59,11 @@ export default function SuccessPage() {
                         {commande.length > 0 ? (
                             commande.map((produit) => (
                                 <div key={produit.id} className="flex justify-between items-center pb-[0.5vw] border-b border-[var(--primary)]">
-                                    <img 
+                                    <Image
                                         className="w-[2.5vw] h-[2.5vw] object-cover"
                                         src={produit.image} 
+                                        width={300}
+                                        height={300}
                                         alt={produit.nom} />
                                     <h3 className="w-[60%] pl-[0.5vw] text-left">{produit.nom}</h3>
                                     <p className="w-[20%] text-center">{produit.quantite}</p>

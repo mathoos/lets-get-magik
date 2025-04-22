@@ -13,6 +13,8 @@ export default function Header() {
                 <figure className="hidden md:flex w-[50vw] h-full border-r border-[var(--primary)]">
                     <Image
                         src={headerImage2}
+                        width={300}
+                        height={300}
                         alt="Produit sur fond d'eau"
                         className="w-full h-full object-cover"
                         priority
@@ -25,12 +27,16 @@ export default function Header() {
                 <figure className="relative w-full md:w-[50vw] h-full">
                     <Image
                         src={headerImage}
+                        width={300}
+                        height={300}
                         alt="Visage d'une femme souriante"
                         className="w-full h-full object-cover"
                         priority
                     />
                     <Image
                         src={sun}
+                        width={300}
+                        height={300}
                         alt="Soleil"
                         className="absolute top-[60vw] right-[15px] md:top-[15vw] md:right-[20vw] w-[10vw] h-[10vw] md:w-[3vw] md:h-[3vw]"
                     />

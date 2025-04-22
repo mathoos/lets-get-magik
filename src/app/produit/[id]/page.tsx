@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import Image from "next/image";
 import supabase from "@/lib/supabase";
 import { useCart } from "@/context/CartContext";
 
@@ -47,9 +48,11 @@ export default function ProduitPage() {
 
           
             <figure className="w-[100vw] h-[100vw] md:h-full md:w-[40vw] pt-[calc(8vh+10vh)] md:pt-[8vh] px-[30px] md:px-[0] pb-[30px] md:pb-[0] md:border-r-[2px] border-[var(--primary)] border-[none]">
-                <img 
+                <Image 
                     src={produit.image} 
                     alt={produit.nom}
+                    width={300}
+                    height={300}
                     className="w-full h-full object-contain md:object-cover"
                 />
             </figure>
