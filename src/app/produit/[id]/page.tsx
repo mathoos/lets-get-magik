@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
-import supabase from "@/lib/supabase";
+import { getSupabaseClient } from "@/lib/supabase";
 import { useCart } from "@/context/CartContext";
 
 type Produit = {
@@ -22,18 +22,17 @@ export default function ProduitPage() {
 
     useEffect(() => {
         async function fetchProduit() {
+            const supabase = await getSupabaseClient();
             const { data, error } = await supabase
                 .from("produits")
                 .select("id, nom, description, details, prix, image, images")
                 .eq("id", id)
                 .single();
-    
+
             if (error) {
                 console.error("Erreur de chargement du produit", error);
-            } 
-            else {
-                // Convertir la chaîne en tableau
-                const imagesArray = data.images ? data.images.split(",") : [];  
+            } else {
+                const imagesArray = data.images ? data.images.split(",") : [];
                 setProduit({ ...data, images: imagesArray });
             }
         }

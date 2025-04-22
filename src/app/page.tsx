@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import supabase from "@/lib/supabase";
+import { getSupabaseClient } from "@/lib/supabase";
 import { useCart } from "../context/CartContext";
 import { useSearch } from "../context/SearchContext";
 import Header from "../components/Header";
@@ -25,10 +25,12 @@ export default function Home() {
 
     useEffect(() => {
         async function fetchProduits() {
+            const supabase = await getSupabaseClient();
             const { data, error } = await supabase.from("produits").select("*");
             if (error) {
                 console.error(error);
-            } else {
+            } 
+            else {
                 setProduits(data);
                 const allCategories = ["Soin", "Sérum", "Crème"];
                 const uniqueCategories = Array.from(new Set(data.map((prod) => prod.categorie).filter(cat => cat)));

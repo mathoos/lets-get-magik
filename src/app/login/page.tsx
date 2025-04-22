@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import supabase from "@/lib/supabase";
+import { getSupabaseClient } from "@/lib/supabase";
 import Image from "next/image";
 import headerImage from "../../assets/headerImg8.jpg";
 
@@ -15,11 +15,13 @@ const LoginPage = () => {
         e.preventDefault();
         setError(null);
 
+        const supabase = await getSupabaseClient();
         const { error } = await supabase.auth.signInWithPassword({ email, password });
 
         if (error) {
             setError("Échec de la connexion. Vérifiez vos identifiants.");
         } 
+        
         else {
             router.push("/admin");
         }

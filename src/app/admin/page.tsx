@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import supabase from "@/lib/supabase";
+import { getSupabaseClient } from "@/lib/supabase";
 import AdminPanel from "@/components/AdminPanel";
 import { User } from "@supabase/supabase-js"; 
 
@@ -12,7 +12,8 @@ const AdminPage = () => {
 
     useEffect(() => {
         const checkAuth = async () => {
-        const { data, error } = await supabase.auth.getUser();
+            const supabase = await getSupabaseClient();
+            const { data, error } = await supabase.auth.getUser();
 
         if (error || !data.user) {
             router.push("/login"); 

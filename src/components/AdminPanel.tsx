@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import supabase from "@/lib/supabase";
+import { getSupabaseClient } from "@/lib/supabase";
 
 
 type Produit = {
@@ -31,23 +31,24 @@ const AdminPanel = () => {
     // Récupérer les produits depuis la base de données
     useEffect(() => {
         const fetchProduits = async () => {
-        const { data, error } = await supabase.from("produits").select("*");
-        if (error) {
-            console.error(error);
-        } 
-        else {
-            setProduits(data as Produit[]);
-        }
+            const supabase = await getSupabaseClient();
+            const { data, error } = await supabase.from("produits").select("*");
+            if (error) {
+                console.error(error);
+            } else {
+                setProduits(data as Produit[]);
+            }
         };
         fetchProduits();
-    }, [produits]);
+    }, []);
 
     // Ajouter un produit
     const handleAddProduct = async (e: React.FormEvent) => {
         e.preventDefault();
     
+        const supabase = await getSupabaseClient();
+
         const produitData = { nom, description, prix, image, categorie, details };
-    
         const { error } = await supabase.from("produits").insert([produitData]);
     
         if (error) {
@@ -67,6 +68,7 @@ const AdminPanel = () => {
     
     // Supprimer un produit
     const handleDeleteProduct = async (id: string) => {
+        const supabase = await getSupabaseClient();
         const { error } = await supabase.from("produits").delete().match({ id });
 
         if (error) {
@@ -95,6 +97,7 @@ const AdminPanel = () => {
     //  Modifier un produit
     const handleUpdateProduct = async (e: React.FormEvent) => {
         e.preventDefault();
+        const supabase = await getSupabaseClient();
     
         if (selectedProduit) {
             const updatedProduit = {
@@ -131,8 +134,9 @@ const AdminPanel = () => {
 
     // Se déconnecter
     const handleLogout = async () => {
+        const supabase = await getSupabaseClient();
         await supabase.auth.signOut();
-        router.push("/login"); 
+        router.push("/login");
     };
 
 
@@ -141,6 +145,7 @@ const AdminPanel = () => {
         const file = e.target.files?.[0];
         if (file) {
             
+            const supabase = await getSupabaseClient();
             const fileName = `${Date.now()}-${file.name}`;
             
             try {
@@ -148,16 +153,16 @@ const AdminPanel = () => {
                 .from('produits-images')
                 .upload(fileName, file);
             
-            if (uploadError) {
-                console.error('Erreur lors du téléchargement de l\'image:', uploadError.message || uploadError);
-                return;
-            }
+                if (uploadError) {
+                    console.error('Erreur lors du téléchargement de l\'image:', uploadError.message || uploadError);
+                    return;
+                }
     
-            const { data } = supabase.storage
-            .from('produits-images')
-            .getPublicUrl(fileName);
-            
-            setImage(data.publicUrl); 
+                const { data } = supabase.storage
+                    .from('produits-images')
+                    .getPublicUrl(fileName);
+                
+                setImage(data.publicUrl); 
             
             } 
 
