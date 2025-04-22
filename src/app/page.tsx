@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import supabase from "@/lib/supabase";
 import { useCart } from "../context/CartContext";
 import { useSearch } from "../context/SearchContext";
@@ -81,7 +82,13 @@ export default function Home() {
                         {produitsFiltres.map((produit) => (
                             <div key={produit.id} className="flex flex-col justify-between gap-[10px] md:gap-[2vh]">
                                 <Link href={`/produit/${produit.id}`} className="flex flex-col gap-[15px] md:gap-[5vh] md:h-auto h-full">
-                                    <img src={produit.image} alt={produit.nom} className="w-full h-[25vh] md:h-[55vh] object-cover"/>
+                                    <Image 
+                                        src={produit.image} 
+                                        alt={produit.nom} 
+                                        width={300}
+                                        height={300}
+                                        className="w-full h-[25vh] md:h-[55vh] object-cover"
+                                    />
                                 </Link>
                                 <div className="flex flex-col gap-[5px] md:gap-[2vh] h-full">
                                     <div className="flex justify-between gap-[1.5vw] h-full">

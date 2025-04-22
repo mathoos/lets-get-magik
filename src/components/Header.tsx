@@ -15,6 +15,7 @@ export default function Header() {
                         src={headerImage2}
                         alt="Produit sur fond d'eau"
                         className="w-full h-full object-cover"
+                        priority
                     />
                 </figure>
 
@@ -26,6 +27,7 @@ export default function Header() {
                         src={headerImage}
                         alt="Visage d'une femme souriante"
                         className="w-full h-full object-cover"
+                        priority
                     />
                     <Image
                         src={sun}

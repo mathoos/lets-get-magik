@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Gilda+Display&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -27,7 +25,6 @@
 
 body {
     color: var(--primary);
-    font-family: "Gilda Display", Helvetica, sans-serif;
     font-size : 5vw; 
 }
 
