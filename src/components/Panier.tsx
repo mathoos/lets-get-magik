@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { loadStripe } from "@stripe/stripe-js";
 import { useCart } from "../context/CartContext"; 
 import trash from "../assets/trash.svg";
 //import "./Panier.scss";
@@ -8,7 +7,6 @@ import trash from "../assets/trash.svg";
 export default function Panier({ isOpen, closePanier }: { isOpen: boolean; closePanier: () => void }) {
 
     const { panier, ajouterAuPanier, retirerDuPanier, calculerTotal, viderPanier } = useCart();  
-    const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string);
 
     const handleChangeQuantite = (produitId: string, newQuantite: number) => {
         if (newQuantite < 1) return; 
@@ -31,10 +29,11 @@ export default function Panier({ isOpen, closePanier }: { isOpen: boolean; close
     const handlePaiement = async () => {
         if (panier.length === 0) return;
     
-        // Sauvegarde le panier avant le paiement
         localStorage.setItem("commande", JSON.stringify(panier));
     
-        const stripe = await stripePromise;
+        const { loadStripe } = await import("@stripe/stripe-js");
+        const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string);
+    
         if (!stripe) {
             console.error("Erreur de chargement de Stripe");
             return;
@@ -48,16 +47,14 @@ export default function Panier({ isOpen, closePanier }: { isOpen: boolean; close
     
         const data = await response.json();
         if (data.sessionId) {
-            // Redirige vers la page de paiement Stripe
-            stripe.redirectToCheckout({ sessionId: data.sessionId }).then(() => {
-                // Une fois la redirection effectuée, vider le panier
-                localStorage.removeItem("panier");
-                viderPanier();  // Utilisation de la fonction viderPanier pour vider le panier global
-            });
+            await stripe.redirectToCheckout({ sessionId: data.sessionId });
+            localStorage.removeItem("panier");
+            viderPanier();
         } else {
             console.error("Erreur de session Stripe :", data.error);
         }
     };
+    
 
     return (
         <div className={`fixed top-0 right-0 md:w-[40vw] w-full h-screen bg-[var(--secondary)] border-l border-[var(--primary)] transition-transform duration-300 z-50 ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
